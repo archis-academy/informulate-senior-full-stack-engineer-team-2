@@ -1,0 +1,1 @@
+{"root":["./eslint.config.ts","./vite.config.ts","./src/custom.d.ts","./src/main.tsx","./src/components/welcome/welcome.tsx","./src/pages/home/home.tsx"],"version":"5.8.3"}
