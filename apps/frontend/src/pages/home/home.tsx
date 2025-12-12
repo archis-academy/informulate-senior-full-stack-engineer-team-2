@@ -1,7 +1,11 @@
-import Welcome from "@components/welcome/welcome";
+import InstructorCTABanner from "@components/instructorCTABanner/InstructorCTABanner";
 
 function Home() {
-  return <Welcome />;
+  return (
+    <main>
+      <InstructorCTABanner />
+    </main>
+  );
 }
 
 export default Home;

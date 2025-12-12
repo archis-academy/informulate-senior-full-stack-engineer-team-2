@@ -1,31 +1,67 @@
 @use "@styles/_functions.scss" as *;
 
-/*
- * Colors
- *
- * configure the colors required for the project here
- * */
+
 $white: #ffffff;
 $black: #000000;
 
-/*
- * Typography and font sizes
- *
- * configure the typography and font sizes required for the project here
- * */
+$color-primary: #4f46e5;
+$color-primary-hover: #4338ca;
+$color-primary-light: #eef2ff;
 
-// font familly
+$color-secondary: #0f172a;
+$color-text-primary: #1e293b;
+$color-text-secondary: #64748b;
+$color-text-light: $white;
+
+$color-background-light: #f8fafc;
+$color-background-white: $white;
+$color-border: #e2e8f0;
+
+$color-accent: #f59e0b;
+
 $primary-font: "Inter", sans-serif;
 
-//font-sizes
 $font-base: pxToRem(16);
+$font-size-xs: pxToRem(12);
+$font-size-sm: pxToRem(14);
+$font-size-md: pxToRem(16);
+$font-size-lg: pxToRem(18);
+$font-size-xl: pxToRem(20);
+$font-size-2xl: pxToRem(24);
+$font-size-3xl: pxToRem(32);
+$font-size-4xl: pxToRem(40);
 
-//font-weight
 $font-regular: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
 
-/*
- * Screen Breakpoints
- * */
+
+$spacing-xs: pxToRem(4);
+$spacing-sm: pxToRem(8);
+$spacing-md: pxToRem(16);
+$spacing-lg: pxToRem(24);
+$spacing-xl: pxToRem(32);
+$spacing-2xl: pxToRem(48);
+$spacing-3xl: pxToRem(64);
+
+
+$radius-sm: pxToRem(4);
+$radius-md: pxToRem(8);
+$radius-lg: pxToRem(12);
+$radius-xl: pxToRem(16);
+$radius-full: 9999px;
+
+
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+
+$transition-fast: 150ms ease;
+$transition-base: 200ms ease;
+$transition-slow: 300ms ease;
+
 
 $desktop-xxl: pxToRem(1920);
 $desktop-xl: pxToRem(1600);
@@ -36,5 +72,5 @@ $tablet-l: pxToRem(992);
 $tablet-m: pxToRem(768);
 $tablet-s: pxToRem(640);
 $mobile-l: pxToRem(576);
-$mobile-m: pxTotRem(480);
+$mobile-m: pxToRem(480);  
 $mobile-s: pxToRem(320);
