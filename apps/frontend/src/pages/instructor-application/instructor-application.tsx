@@ -1,7 +1,7 @@
 function InstructorApplication() {
   return (
     <main>
-        <h1>Application</h1>
+        <h1>Instruction Application</h1>
     </main>
   );
 }
