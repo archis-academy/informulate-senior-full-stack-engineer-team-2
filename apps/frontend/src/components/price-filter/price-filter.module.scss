@@ -1,0 +1,331 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+.priceFilter {
+  width: 100%;
+  max-width: pxToRem(320);
+  padding: $spacing-xl;
+  background-color: $white;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  font-family: $primary-font;
+
+  @media (max-width: $tablet-m) {
+    max-width: 100%;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-lg;
+}
+
+.title {
+  font-size: pxToRem(18);
+  font-weight: $font-semibold;
+  color: $color-secondary;
+  margin: 0;
+}
+
+.resetButton {
+  padding: pxToRem(4) pxToRem(8);
+  font-size: pxToRem(13);
+  font-weight: $font-medium;
+  font-family: $primary-font;
+  color: #e35c33;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xl;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  &:focus + .checkboxCustom {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+  }
+}
+
+.checkboxCustom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: pxToRem(20);
+  height: pxToRem(20);
+  min-width: pxToRem(20);
+  background-color: $white;
+  border: 2px solid $color-border;
+  border-radius: $radius-sm;
+  transition: all $transition-base;
+  color: $white;
+
+  .checkbox:checked + & {
+    background-color: #e35c33;
+    border-color: #e35c33;
+  }
+
+  .checkboxLabel:hover & {
+    border-color: #e35c33;
+  }
+}
+
+.checkboxText {
+  font-size: pxToRem(15);
+  font-weight: $font-medium;
+  color: $color-text-primary;
+}
+
+.priceRangeSection {
+  transition: opacity $transition-base;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  align-items: flex-end;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xl;
+}
+
+.inputWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.inputLabel {
+  font-size: pxToRem(12);
+  font-weight: $font-medium;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  background-color: #f7f9fa;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: border-color $transition-base;
+
+  &:focus-within {
+    border-color: #e35c33;
+  }
+}
+
+.currencySymbol {
+  padding: pxToRem(10) pxToRem(12);
+  font-size: pxToRem(14);
+  font-weight: $font-medium;
+  color: $color-text-secondary;
+  background-color: #f0f2f5;
+  border-right: 1px solid $color-border;
+}
+
+.priceInput {
+  flex: 1;
+  width: 100%;
+  padding: pxToRem(10) pxToRem(12);
+  font-size: pxToRem(14);
+  font-family: $primary-font;
+  font-weight: $font-medium;
+  color: $color-text-primary;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  -moz-appearance: textfield;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:disabled {
+    color: $color-text-secondary;
+    cursor: not-allowed;
+  }
+}
+
+.inputSeparator {
+  font-size: pxToRem(16);
+  color: $color-text-secondary;
+  padding-bottom: pxToRem(10);
+}
+
+.sliderContainer {
+  position: relative;
+  height: pxToRem(40);
+  margin-bottom: $spacing-sm;
+}
+
+.sliderTrack {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: pxToRem(6);
+  background-color: #e2e8f0;
+  border-radius: $radius-full;
+  transform: translateY(-50%);
+}
+
+.sliderRange {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: #e35c33;
+  border-radius: $radius-full;
+  transition: left $transition-fast, width $transition-fast;
+}
+
+.sliderThumb {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: pxToRem(6);
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: pxToRem(22);
+    height: pxToRem(22);
+    background-color: $white;
+    border: 3px solid #e35c33;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: $shadow-md;
+    transition: transform $transition-base, box-shadow $transition-base;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: pxToRem(22);
+    height: pxToRem(22);
+    background-color: $white;
+    border: 3px solid #e35c33;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: $shadow-md;
+    transition: transform $transition-base, box-shadow $transition-base;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  &:disabled {
+    &::-webkit-slider-thumb {
+      background-color: #e2e8f0;
+      border-color: $color-text-secondary;
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    &::-moz-range-thumb {
+      background-color: #e2e8f0;
+      border-color: $color-text-secondary;
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      box-shadow: 0 0 0 4px rgba(227, 92, 51, 0.2);
+    }
+
+    &::-moz-range-thumb {
+      box-shadow: 0 0 0 4px rgba(227, 92, 51, 0.2);
+    }
+  }
+}
+
+.sliderThumbMin {
+  z-index: 3;
+}
+
+.sliderThumbMax {
+  z-index: 4;
+}
+
+.priceLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+}
+
+.priceLabel {
+  font-size: pxToRem(12);
+  color: $color-text-secondary;
+}
+
+.selectedRange {
+  padding-top: $spacing-md;
+  border-top: 1px solid $color-border;
+}
+
+.selectedRangeText {
+  font-size: pxToRem(13);
+  font-weight: $font-medium;
+  color: $color-text-secondary;
+}
