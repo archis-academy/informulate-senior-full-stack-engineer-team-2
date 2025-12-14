@@ -10,7 +10,11 @@ function Home() {
           → Go to Price Filter Demo
         </Link>
       </div>
-      
+       <div style={{ padding: "4rem", background: "#1e293b" }}>
+        <Link to="/course-detail" style={{ color: "white" }}>
+          → Go to Course Detail Page 
+        </Link>
+      </div>
       <PopularTools />
       <InstructorCTABanner />
     </main>
