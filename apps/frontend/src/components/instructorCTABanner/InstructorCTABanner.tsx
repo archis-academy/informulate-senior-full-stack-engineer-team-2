@@ -26,8 +26,7 @@ export default function InstructorCTABanner() {
             platform. We provide the tools and skills to teach what you love.
           </p>
           <Link
-            to="/instructor-application" // <-- use 'to' instead of 'href'
-            role="button"
+            to="/instructor-application"
             className={styles.ctaButton}
           >
             <span className={styles.buttonText}>Start Teaching</span>
