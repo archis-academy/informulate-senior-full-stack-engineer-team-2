@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"; // <-- import Link
+import { Link } from "react-router-dom"; 
 import styles from "./instructor-cta-banner.module.scss";
 
 interface Step {
