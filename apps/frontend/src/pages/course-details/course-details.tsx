@@ -5,19 +5,19 @@ import styles from "./course-details.module.scss";
 export default function CourseDetailsPage() {
   return (
     <main className={styles.courseDetailsPage}>
-      <div className={styles.container}>
-        <Link to="/" className={styles.backLink}>
+      <div className={styles.contentContainer}>
+        <Link to="/" className={styles.breadcrumbLink}>
           ← Back to Home
         </Link>
 
-        <h1 className={styles.title}>Course Details</h1>
-        <p className={styles.subtitle}>
+        <h1 className={styles.courseTitle}>Course Details</h1>
+        <p className={styles.courseSubtitle}>
           Watch the course introduction video below.
         </p>
 
-        <div className={styles.videoSection}>
+        <div className={styles.heroVideoCard}>
           <h2 className={styles.videoTitle}>Course Introduction</h2>
-          <div className={styles.videoWrapper}>
+          <div className={styles.videoContainer}>
             <VideoPlayer
               src="https://www.youtube.com/watch?v=bMknfKXIFA8"
               title="Course Introduction Video"
