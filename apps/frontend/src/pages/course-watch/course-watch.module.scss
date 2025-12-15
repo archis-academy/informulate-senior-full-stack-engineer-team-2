@@ -1,0 +1,57 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+.courseWatchPage {
+  min-height: 100vh;
+  background-color: #f7f9fa;
+  font-family: $primary-font;
+}
+
+.topBar {
+  background-color: $white;
+  padding: $spacing-md $spacing-xl;
+  border-bottom: 1px solid $color-border;
+
+  @media (max-width: $tablet-m) {
+    padding: $spacing-md $spacing-lg;
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  font-size: pxToRem(14);
+  font-weight: $font-medium;
+  color: #e35c33;
+  text-decoration: none;
+  transition: all $transition-base;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
+.videoSection {
+  background-color: $black;
+}
+
+.contentSection {
+  max-width: pxToRem(1340);
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-xl;
+
+  @media (max-width: $tablet-m) {
+    padding: $spacing-xl $spacing-lg;
+  }
+
+  p {
+    font-size: pxToRem(15);
+    color: $color-text-secondary;
+  }
+}

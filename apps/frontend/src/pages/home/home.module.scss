@@ -1,0 +1,107 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+.homePage {
+  min-height: 100vh;
+  font-family: $primary-font;
+}
+
+.devNav {
+  background-color: #1e293b;
+  padding: $spacing-2xl 0;
+}
+
+.devNavContainer {
+  max-width: pxToRem(1340);
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+
+  @media (max-width: $tablet-m) {
+    padding: 0 $spacing-lg;
+  }
+}
+
+.devNavHeader {
+  margin-bottom: $spacing-xl;
+}
+
+.devNavTitle {
+  font-size: pxToRem(24);
+  font-weight: $font-bold;
+  color: $white;
+  margin: 0 0 $spacing-xs 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(20);
+  }
+}
+
+.devNavSubtitle {
+  font-size: pxToRem(14);
+  color: #94a3b8;
+  margin: 0;
+}
+
+.devNavList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(pxToRem(280), 1fr));
+  gap: $spacing-md;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.devNavItem {
+  display: block;
+}
+
+.devNavLink {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding: $spacing-lg;
+  background-color: #334155;
+  border-radius: $radius-lg;
+  text-decoration: none;
+  transition: all $transition-base;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #475569;
+    transform: translateY(pxToRem(-2));
+
+    .linkArrow {
+      transform: translateX(pxToRem(4));
+      opacity: 1;
+    }
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+  }
+}
+
+.linkLabel {
+  font-size: pxToRem(16);
+  font-weight: $font-semibold;
+  color: $white;
+  line-height: 1.3;
+}
+
+.linkDescription {
+  font-size: pxToRem(13);
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.linkArrow {
+  position: absolute;
+  top: $spacing-lg;
+  right: $spacing-lg;
+  font-size: pxToRem(18);
+  color: #e35c33;
+  opacity: 0.5;
+  transition: all $transition-base;
+}
