@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import styles from "./popular-tools.module.scss";
+import { Link } from "react-router-dom";
 
 // Tool Card Interface
 interface Tool {
@@ -60,9 +61,8 @@ interface ToolCardProps {
 
 function ToolCard({ tool }: ToolCardProps) {
   return (
-    <a href={`/tools/${tool.id}`} className={styles.toolCard}>
+    <Link to={`/tools/${tool.id}`} className={styles.toolCard}>
       <div className={styles.toolIcon}>
-        {/* Placeholder icon - first letter of tool name */}
         <span>{tool.name.charAt(0)}</span>
       </div>
       <div className={styles.toolInfo}>
@@ -71,7 +71,7 @@ function ToolCard({ tool }: ToolCardProps) {
           {tool.courseCount.toLocaleString()} courses
         </p>
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -83,9 +83,9 @@ interface KeywordTagProps {
 function KeywordTag({ keyword }: KeywordTagProps) {
   return (
     <li className={styles.keywordItem}>
-      <a href={`/keywords/${keyword.id}`} className={styles.keywordTag}>
+      <Link to={`/keywords/${keyword.id}`} className={styles.keywordTag}>
         {keyword.name}
-      </a>
+      </Link>
     </li>
   );
 }
