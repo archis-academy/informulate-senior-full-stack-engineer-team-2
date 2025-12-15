@@ -1,0 +1,110 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+.attachedFiles {
+  width: 100%;
+}
+
+.fileList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  background-color: #f7f9fa;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  transition: all $transition-base;
+
+  &:hover {
+    background-color: $white;
+    border-color: #e35c33;
+  }
+
+  @media (max-width: $mobile-l) {
+    flex-wrap: wrap;
+  }
+}
+
+.fileIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: pxToRem(48);
+  height: pxToRem(48);
+  min-width: pxToRem(48);
+  background-color: $white;
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+}
+
+.fileInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem(2);
+  min-width: 0;
+}
+
+.fileName {
+  font-size: pxToRem(15);
+  font-weight: $font-medium;
+  color: $color-secondary;
+}
+
+.fileMeta {
+  font-size: pxToRem(13);
+  color: $color-text-secondary;
+}
+
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  font-size: pxToRem(14);
+  font-weight: $font-medium;
+  color: #e35c33;
+  background-color: $white;
+  border: 1px solid #e35c33;
+  border-radius: $radius-md;
+  text-decoration: none;
+  transition: all $transition-base;
+
+  &:hover {
+    background-color: #e35c33;
+    color: $white;
+  }
+
+  @media (max-width: $mobile-l) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-2xl;
+  text-align: center;
+  color: $color-text-secondary;
+
+  svg {
+    margin-bottom: $spacing-md;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: pxToRem(14);
+    margin: 0;
+  }
+}
