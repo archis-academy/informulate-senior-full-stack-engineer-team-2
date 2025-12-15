@@ -1,0 +1,240 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+@use "sass:color";
+
+.bannerWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  min-height: pxToRem(400);
+  font-family: $primary-font;
+
+  @media (max-width: $desktop-s) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leftColumn {
+  background-color: #e35c33;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-3xl $spacing-xl;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: $desktop-s) {
+    flex-direction: column;
+    text-align: center;
+    padding: $spacing-2xl $spacing-lg;
+  }
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: pxToRem(400);
+  z-index: 2;
+
+  @media (max-width: $desktop-s) {
+    align-items: center;
+    max-width: 100%;
+  }
+}
+
+.title {
+  font-size: pxToRem(40);
+  font-weight: $font-bold;
+  color: $white;
+  margin: 0 0 $spacing-lg 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(32);
+  }
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(26);
+  }
+}
+
+.description {
+  font-size: pxToRem(17);
+  font-weight: $font-regular;
+  color: $white;
+  line-height: 1.6;
+  margin: 0 0 $spacing-xl 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: $font-size-md;
+  }
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-md;
+  padding: pxToRem(16) pxToRem(28);
+  background-color: $white;
+  color: #e35c33;
+  font-size: pxToRem(16);
+  font-weight: $font-bold;
+  font-family: $primary-font;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all $transition-base;
+  width: fit-content;
+
+  &:hover {
+    background-color: #f2f2f2;
+    transform: translateY(pxToRem(-2));
+    box-shadow: $shadow-lg;
+  }
+
+  &:focus {
+    outline: 2px solid $white;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.buttonText {
+  display: inline-block;
+}
+
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform $transition-base;
+
+  svg {
+    stroke: #e35c33;
+    stroke-width: 2;
+  }
+
+  .ctaButton:hover & {
+    transform: translateX(pxToRem(4));
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 1;
+  flex-shrink: 0;
+
+  @media (max-width: $desktop-s) {
+    display: none;
+  }
+}
+
+.instructorImage {
+  max-height: pxToRem(300);
+  width: auto;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+.rightColumn {
+  background-color: #f7f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: $spacing-3xl $spacing-xl;
+
+  @media (max-width: $desktop-s) {
+    padding: $spacing-2xl $spacing-lg;
+  }
+}
+
+.stepsTitle {
+  font-size: pxToRem(28);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  margin: 0 0 $spacing-xl 0;
+  text-align: left;
+
+  @media (max-width: $desktop-s) {
+    text-align: center;
+    font-size: pxToRem(24);
+  }
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(22);
+  }
+}
+
+.stepsGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-xl $spacing-lg;
+
+  @media (max-width: $tablet-m) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.stepCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: pxToRem(18);
+  font-weight: $font-bold;
+  width: pxToRem(48);
+  height: pxToRem(48);
+  min-width: pxToRem(48);
+  border-radius: 50%;
+  background-color: $color-border;
+  color: $color-secondary;
+}
+
+.stepLabel {
+  font-size: pxToRem(16);
+  font-weight: $font-medium;
+  color: $color-text-primary;
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(14);
+  }
+}
+
+.stepItem--1 .stepCircle {
+  background-color: #eef0ff;
+  color: #5b5cff;
+}
+
+.stepItem--2 .stepCircle {
+  background-color: #fff0eb;
+  color: #e35c33;
+}
+
+.stepItem--3 .stepCircle {
+  background-color: #ffecec;
+  color: #ff3f31;
+}
+
+.stepItem--4 .stepCircle {
+  background-color: #e8fcf1;
+  color: #34c759;
+}

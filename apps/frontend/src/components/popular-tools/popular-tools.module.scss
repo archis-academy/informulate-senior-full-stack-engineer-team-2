@@ -1,0 +1,304 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   POPULAR TOOLS SECTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+.popularToolsSection {
+  width: 100%;
+  background-color: $white;
+  font-family: $primary-font;
+  padding: $spacing-3xl 0;
+
+  @media (max-width: $tablet-m) {
+    padding: $spacing-2xl 0;
+  }
+}
+
+.container {
+  max-width: pxToRem(1340);
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+
+  @media (max-width: $tablet-m) {
+    padding: 0 $spacing-lg;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION HEADER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sectionHeader {
+  margin-bottom: $spacing-xl;
+  text-align: left;
+
+  @media (max-width: $tablet-m) {
+    text-align: center;
+  }
+}
+
+.sectionTitle {
+  font-size: pxToRem(32);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  margin: 0 0 $spacing-sm 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(26);
+  }
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(22);
+  }
+}
+
+.sectionSubtitle {
+  font-size: pxToRem(16);
+  color: $color-text-secondary;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TOOLS WRAPPER (Contains scroll container + nav buttons)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.toolsWrapper {
+  position: relative;
+  margin-bottom: $spacing-2xl;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NAVIGATION BUTTONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: pxToRem(48);
+  height: pxToRem(48);
+  border-radius: 50%;
+  background-color: $white;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-md;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+  color: $color-text-primary;
+
+  &:hover {
+    background-color: #f7f9fa;
+    box-shadow: $shadow-lg;
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.98);
+  }
+
+  // Hide on mobile (touch scrolling is available)
+  @media (max-width: $tablet-m) {
+    display: none;
+  }
+}
+
+.navButtonLeft {
+  left: pxToRem(-24);
+
+  @media (max-width: $desktop-s) {
+    left: pxToRem(-16);
+  }
+}
+
+.navButtonRight {
+  right: pxToRem(-24);
+
+  @media (max-width: $desktop-s) {
+    right: pxToRem(-16);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLABLE TOOLS CONTAINER
+   ═══════════════════════════════════════════════════════════════════════════ */
+.toolsScrollContainer {
+  display: flex;
+  gap: $spacing-lg;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: $spacing-sm 0;
+
+  // Hide scrollbar but keep functionality
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
+
+  // Enable touch scrolling on mobile
+  -webkit-overflow-scrolling: touch;
+
+  @media (max-width: $tablet-m) {
+    gap: $spacing-md;
+    padding: $spacing-sm $spacing-xs;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TOOL CARD
+   ═══════════════════════════════════════════════════════════════════════════ */
+.toolCard {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  min-width: pxToRem(220);
+  padding: $spacing-lg;
+  background-color: #f7f9fa;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  text-decoration: none;
+  transition: all $transition-base;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: $white;
+    border-color: #e35c33;
+    box-shadow: $shadow-md;
+    transform: translateY(pxToRem(-4));
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: $tablet-m) {
+    min-width: pxToRem(180);
+    padding: $spacing-md;
+    gap: $spacing-sm;
+  }
+}
+
+.toolIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: pxToRem(48);
+  height: pxToRem(48);
+  min-width: pxToRem(48);
+  background-color: #e35c33;
+  color: $white;
+  font-size: pxToRem(20);
+  font-weight: $font-bold;
+  border-radius: $radius-md;
+
+  @media (max-width: $tablet-m) {
+    width: pxToRem(40);
+    height: pxToRem(40);
+    min-width: pxToRem(40);
+    font-size: pxToRem(16);
+  }
+}
+
+.toolInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.toolName {
+  font-size: pxToRem(16);
+  font-weight: $font-semibold;
+  color: $color-secondary;
+  margin: 0;
+  white-space: nowrap;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(14);
+  }
+}
+
+.toolCourseCount {
+  font-size: pxToRem(14);
+  color: $color-text-secondary;
+  margin: 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(12);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   POPULAR KEYWORDS SECTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+.keywordsSection {
+  padding-top: $spacing-xl;
+  border-top: 1px solid $color-border;
+}
+
+.keywordsTitle {
+  font-size: pxToRem(18);
+  font-weight: $font-semibold;
+  color: $color-secondary;
+  margin: 0 0 $spacing-lg 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(16);
+    text-align: center;
+  }
+}
+
+.keywordsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media (max-width: $tablet-m) {
+    justify-content: center;
+  }
+}
+
+.keywordItem {
+  display: inline-block;
+}
+
+.keywordTag {
+  display: inline-block;
+  padding: pxToRem(8) pxToRem(16);
+  font-size: pxToRem(14);
+  font-weight: $font-medium;
+  color: $color-text-primary;
+  background-color: #f7f9fa;
+  border: 1px solid $color-border;
+  border-radius: $radius-full;
+  text-decoration: none;
+  transition: all $transition-base;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #fff8f6;
+    border-color: #e35c33;
+    color: #e35c33;
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: $tablet-m) {
+    padding: pxToRem(6) pxToRem(12);
+    font-size: pxToRem(13);
+  }
+}
