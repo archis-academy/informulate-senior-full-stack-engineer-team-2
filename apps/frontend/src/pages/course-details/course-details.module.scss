@@ -192,6 +192,17 @@
   }
 }
 
+.videoTitle {
+  font-size: pxToRem(20);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  margin: 0 0 $spacing-md 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(18);
+  }
+}
+
 .videoContainer {
   background-color: $black;
 }
