@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import PriceFilter, { type PriceFilterState } from "@components/price-filter/price-filter";
 import styles from "./filter-demo.module.scss";
 
 export default function FilterDemoPage() {
   const [filterState, setFilterState] = useState<PriceFilterState | null>(null);
 
-  const handleFilterChange = (filter: PriceFilterState) => {
+  const handleFilterChange = useCallback((filter: PriceFilterState) => {
     setFilterState(filter);
-  };
+  }, []);
 
   return (
     <main className={styles.demoPage}>
