@@ -1,4 +1,5 @@
 import styles from "./instructor-cta-banner.module.scss";
+import { Link } from "react-router-dom";
 
 interface Step {
   number: 1 | 2 | 3 | 4;
@@ -24,8 +25,8 @@ export default function InstructorCTABanner() {
             Instructors from around the world teach millions of students on our
             platform. We provide the tools and skills to teach what you love.
           </p>
-          <a
-            href="/instructor-application"
+          <Link
+            to="/instructor-application"
             role="button"
             className={styles.ctaButton}
           >
@@ -44,7 +45,7 @@ export default function InstructorCTABanner() {
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </span>
-          </a>
+          </Link>
         </div>
 
         <div className={styles.imageWrapper}>
