@@ -7,6 +7,10 @@ interface PriceFilterProps {
   initialMin?: number;
   initialMax?: number;
   currency?: string;
+   /**
+   * Called whenever the price filter state changes.
+   * Must be memoized with useCallback to avoid unnecessary re-renders.
+   */
   onFilterChange?: (filter: PriceFilterState) => void;
 }
 
