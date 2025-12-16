@@ -91,7 +91,7 @@
   width: fit-content;
 
   &:hover {
-    background-color: #f2f2f2;
+    background-color: $color-background-hover-light; // use the variable instead of hardcoded value
     transform: translateY(pxToRem(-2));
     box-shadow: $shadow-lg;
   }
@@ -103,7 +103,7 @@
 
   &:active {
     transform: translateY(0);
-  }
+  }  
 }
 
 .buttonText {
