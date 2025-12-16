@@ -34,7 +34,7 @@
   font-size: pxToRem(13);
   font-weight: $font-medium;
   font-family: $primary-font;
-  color: #e35c33;
+  color: $color-accent-orange;
   background: none;
   border: none;
   cursor: pointer;
@@ -45,7 +45,7 @@
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
     border-radius: $radius-sm;
   }
@@ -73,7 +73,7 @@
   height: 0;
 
   &:focus + .checkboxCustom {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 }
@@ -92,12 +92,12 @@
   color: $white;
 
   .checkbox:checked + & {
-    background-color: #e35c33;
-    border-color: #e35c33;
+    background-color: $color-accent-orange;
+    border-color: $color-accent-orange;
   }
 
   .checkboxLabel:hover & {
-    border-color: #e35c33;
+    border-color: $color-accent-orange;
   }
 }
 
@@ -148,7 +148,7 @@
   transition: border-color $transition-base;
 
   &:focus-within {
-    border-color: #e35c33;
+    border-color: $color-accent-orange;
   }
 }
 
@@ -213,7 +213,7 @@
   position: absolute;
   top: 0;
   height: 100%;
-  background-color: #e35c33;
+  background-color: $color-accent-orange;
   border-radius: $radius-full;
   transition: left $transition-fast, width $transition-fast;
 }
@@ -235,7 +235,7 @@
     width: pxToRem(22);
     height: pxToRem(22);
     background-color: $white;
-    border: 3px solid #e35c33;
+    border: 3px solid $color-accent-orange;
     border-radius: 50%;
     cursor: pointer;
     pointer-events: auto;
@@ -252,7 +252,7 @@
     width: pxToRem(22);
     height: pxToRem(22);
     background-color: $white;
-    border: 3px solid #e35c33;
+    border: 3px solid $color-accent-orange;
     border-radius: 50%;
     cursor: pointer;
     pointer-events: auto;
