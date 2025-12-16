@@ -1,8 +1,8 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import styles from "./popular-tools.module.scss";
 import { Link } from "react-router-dom";
+import Icon from "@components/icon/icon";
 
-// Tool Card Interface
 interface Tool {
   id: number;
   name: string;
@@ -10,13 +10,11 @@ interface Tool {
   icon?: string;
 }
 
-// Keyword Interface
 interface Keyword {
   id: number;
   name: string;
 }
 
-// Placeholder data for tools
 const tools: Tool[] = [
   { id: 1, name: "ChatGPT", courseCount: 1250 },
   { id: 2, name: "Python", courseCount: 3420 },
@@ -35,7 +33,6 @@ const tools: Tool[] = [
   { id: 15, name: "Swift", courseCount: 540 },
 ];
 
-// Placeholder data for keywords
 const keywords: Keyword[] = [
   { id: 1, name: "Web Development" },
   { id: 2, name: "Machine Learning" },
@@ -54,14 +51,13 @@ const keywords: Keyword[] = [
   { id: 15, name: "Photography" },
 ];
 
-// Reusable Tool Card Component
 interface ToolCardProps {
   tool: Tool;
 }
 
 function ToolCard({ tool }: ToolCardProps) {
   return (
-    <Link to={`/tools/${tool.id}`} className={styles.toolCard}>  
+    <Link to={`/tools/${tool.id}`} className={styles.toolCard}>
       <div className={styles.toolIcon}>
         <span>{tool.name.charAt(0)}</span>
       </div>
@@ -75,7 +71,7 @@ function ToolCard({ tool }: ToolCardProps) {
   );
 }
 
-// Reusable Keyword Tag Component
+
 interface KeywordTagProps {
   keyword: Keyword;
 }
@@ -83,42 +79,46 @@ interface KeywordTagProps {
 function KeywordTag({ keyword }: KeywordTagProps) {
   return (
     <li className={styles.keywordItem}>
-      <Link to={`/keywords/${keyword.id}`} className={styles.keywordTag}>  
+      <Link to={`/keywords/${keyword.id}`} className={styles.keywordTag}>
         {keyword.name}
       </Link>
     </li>
   );
 }
 
-// Main Popular Tools Section Component
 export default function PopularTools() {
-  // Ref for the scrollable container
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll amount in pixels
-  const SCROLL_AMOUNT = 300;
-
-  /**
-   * Handles scrolling the tool cards container
-   * @param direction - 'left' or 'right'
-   */
-  const handleScroll = (direction: "left" | "right") => {
+  const getScrollAmount = useCallback((): number => {
     const container = scrollContainerRef.current;
+    if (!container) return 300;
 
+    const firstCard = container.querySelector<HTMLElement>(`.${styles.toolCard}`);
+    if (!firstCard) return 300;
+
+    const cardWidth = firstCard.offsetWidth;
+    const containerStyles = window.getComputedStyle(container);
+    const gap = parseFloat(containerStyles.gap) || 16;
+
+    return cardWidth + gap;
+  }, []);
+
+  const handleScroll = useCallback((direction: "left" | "right") => {
+    const container = scrollContainerRef.current;
     if (!container) return;
 
-    const scrollAmount = direction === "left" ? -SCROLL_AMOUNT : SCROLL_AMOUNT;
+    const scrollAmount = getScrollAmount();
+    const scrollDirection = direction === "left" ? -scrollAmount : scrollAmount;
 
     container.scrollBy({
-      left: scrollAmount,
+      left: scrollDirection,
       behavior: "smooth",
     });
-  };
+  }, [getScrollAmount]);
 
   return (
     <section className={styles.popularToolsSection} aria-labelledby="popular-tools-heading">
       <div className={styles.container}>
-        {/* Section Header */}
         <div className={styles.sectionHeader}>
           <h2 id="popular-tools-heading" className={styles.sectionTitle}>
             Popular Tools
@@ -128,31 +128,16 @@ export default function PopularTools() {
           </p>
         </div>
 
-        {/* Scrollable Tools Container */}
         <div className={styles.toolsWrapper}>
-          {/* Left Navigation Button */}
           <button
             type="button"
             className={`${styles.navButton} ${styles.navButtonLeft}`}
             onClick={() => handleScroll("left")}
             aria-label="Scroll left"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
+            <Icon name="arrow-left" aria-hidden />
           </button>
 
-          {/* Scrollable Container */}
           <div
             ref={scrollContainerRef}
             className={styles.toolsScrollContainer}
@@ -163,31 +148,16 @@ export default function PopularTools() {
               <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
-
-          {/* Right Navigation Button */}
           <button
             type="button"
             className={`${styles.navButton} ${styles.navButtonRight}`}
             onClick={() => handleScroll("right")}
             aria-label="Scroll right"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <Icon name="arrow-right" aria-hidden />
           </button>
         </div>
 
-        {/* Popular Keywords Section */}
         <div className={styles.keywordsSection}>
           <h3 className={styles.keywordsTitle}>Popular Keywords:</h3>
           <ul className={styles.keywordsList} role="list">
