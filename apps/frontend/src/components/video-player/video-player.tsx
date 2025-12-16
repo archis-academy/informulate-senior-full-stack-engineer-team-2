@@ -113,8 +113,14 @@ export default function VideoPlayer({
   const detectedSourceType: VideoSourceType =
     sourceType || detectSourceType(src);
 
-  const aspectRatioClass: string =
-    styles[`aspectRatio${aspectRatio.replace(":", "x")}`] || "";
+  const aspectRatioClasses: Record<VideoPlayerProps["aspectRatio"], string> = {
+    "16:9": styles.aspectRatio16x9,
+    "4:3": styles.aspectRatio4x3,
+    "21:9": styles.aspectRatio21x9,
+    "1:1": styles.aspectRatio1x1,
+  };
+
+  const aspectRatioClass = aspectRatioClasses[aspectRatio] || "";
 
   const handleLoadedData = useCallback((): void => {
     setIsLoading(false);

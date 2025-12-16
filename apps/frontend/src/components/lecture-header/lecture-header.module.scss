@@ -1,0 +1,228 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+.lectureHeader {
+  width: 100%;
+  background-color: $white;
+  border-bottom: 1px solid $color-border;
+  padding: $spacing-xl 0;
+  font-family: $primary-font;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $spacing-xl;
+  max-width: pxToRem(1340);
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+
+  @media (max-width: $tablet-m) {
+    flex-direction: column;
+    gap: $spacing-lg;
+    padding: 0 $spacing-lg;
+  }
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  flex: 1;
+
+  @media (max-width: $tablet-m) {
+    width: 100%;
+  }
+}
+
+.lectureTitle {
+  font-size: pxToRem(32);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  margin: 0;
+  line-height: 1.3;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(26);
+  }
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(22);
+  }
+}
+
+.lectureNumber {
+  color: $color-secondary;
+}
+
+.studentsInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.avatarStack {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: pxToRem(40);
+  height: pxToRem(40);
+  border-radius: 50%;
+  border: 3px solid $white;
+  overflow: hidden;
+  margin-left: pxToRem(-12);
+  background-color: #f3ca8c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: $mobile-l) {
+    width: pxToRem(36);
+    height: pxToRem(36);
+    margin-left: pxToRem(-10);
+  }
+}
+
+.avatarInitials {
+  font-size: pxToRem(14);
+  font-weight: $font-semibold;
+  color: $color-secondary;
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(12);
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.avatar:nth-child(1) {
+  background-color: #ffd9b3;
+}
+
+.avatar:nth-child(2) {
+  background-color: #ffeb99;
+}
+
+.avatar:nth-child(3) {
+  background-color: #b3e0ff;
+}
+
+.avatar:nth-child(4) {
+  background-color: #ffb3d9;
+}
+
+.avatar:nth-child(5) {
+  background-color: #d4f0e0;
+}
+
+.studentCount {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem(2);
+}
+
+.countNumber {
+  font-size: pxToRem(18);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  line-height: 1.2;
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(16);
+  }
+}
+
+.countLabel {
+  font-size: pxToRem(14);
+  font-weight: $font-regular;
+  color: $color-text-secondary;
+  line-height: 1.2;
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(13);
+  }
+}
+
+.rightColumn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  flex-shrink: 0;
+
+  @media (max-width: $tablet-m) {
+    width: 100%;
+    justify-content: flex-start;
+    padding-top: $spacing-md;
+    border-top: 1px solid $color-border;
+  }
+
+  @media (max-width: $mobile-l) {
+    flex-wrap: wrap;
+    gap: $spacing-md;
+  }
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.metaIcon {
+  color: $color-text-secondary;
+  flex-shrink: 0;
+}
+
+.metaText {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem(2);
+}
+
+.metaValue {
+  font-size: pxToRem(15);
+  font-weight: $font-semibold;
+  color: $color-secondary;
+  line-height: 1.2;
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(14);
+  }
+}
+
+.metaLabel {
+  font-size: pxToRem(13);
+  font-weight: $font-regular;
+  color: $color-text-secondary;
+  line-height: 1.2;
+
+  @media (max-width: $mobile-l) {
+    font-size: pxToRem(12);
+  }
+}
+
+.divider {
+  width: 1px;
+  height: pxToRem(40);
+  background-color: $color-border;
+
+  @media (max-width: $mobile-l) {
+    display: none;
+  }
+}

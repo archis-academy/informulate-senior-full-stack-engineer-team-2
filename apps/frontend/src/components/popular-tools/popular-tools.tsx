@@ -71,7 +71,6 @@ function ToolCard({ tool }: ToolCardProps) {
   );
 }
 
-
 interface KeywordTagProps {
   keyword: Keyword;
 }
@@ -148,6 +147,7 @@ export default function PopularTools() {
               <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
+
           <button
             type="button"
             className={`${styles.navButton} ${styles.navButtonRight}`}
