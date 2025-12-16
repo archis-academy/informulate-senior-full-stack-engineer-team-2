@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./lecture-header.module.scss";
 
 // Interfaces
@@ -27,23 +28,18 @@ export default function LectureHeader({
   /**
    * Format number with comma separators
    */
-  const formatNumber = (num: number): string => {
-    return num.toLocaleString();
-  };
+  const formatNumber = (num: number): string => num.toLocaleString();
 
   /**
    * Get initials from name
    */
-  const getInitials = (name: string): string => {
-    return name
+  const getInitials = (name: string): string =>
+    name
       .split(" ")
       .map((n) => n[0])
       .join("")
       .toUpperCase()
       .slice(0, 2);
-  };
-
-  const hiddenClass = styles.hidden;
 
   const displayAvatars: Student[] =
     studentAvatars.length > 0
@@ -71,35 +67,29 @@ export default function LectureHeader({
           <div className={styles.studentsInfo}>
             {/* Student Avatars */}
             <div className={styles.avatarStack} aria-label="Students watching">
-              {displayAvatars.map((student, index) => (
-                <div
-                  key={student.id}
-                  className={styles.avatar}
-                  style={{ zIndex: displayAvatars.length - index }}
-                  title={student.name}
-                >
-                    
-                  {student.avatar ? (
-                    <img
-                      src={student.avatar}
-                      alt={student.name}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = "none";
-                        hiddenClass &&
-                            (e.target as HTMLImageElement)
-                                .nextElementSibling?.classList.remove(hiddenClass);                       
-                      }}
-                    />
-                  ) : null}
-                  <span
-                    className={`${styles.avatarInitials} ${
-                      student.avatar ? styles.hidden : ""
-                    }`}
+              {displayAvatars.map((student, index) => {
+                const [imageError, setImageError] = useState(false);
+
+                return (
+                  <div
+                    key={student.id}
+                    className={styles.avatar}
+                    style={{ zIndex: displayAvatars.length - index }}
+                    title={student.name}
                   >
-                    {getInitials(student.name)}
-                  </span>
-                </div>
-              ))}
+                    {!imageError && student.avatar ? (
+                      <img
+                        src={student.avatar}
+                        alt={student.name}
+                        onError={() => setImageError(true)}
+                      />
+                    ) : null}
+                    <span className={styles.avatarInitials}>
+                      {getInitials(student.name)}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Student Count */}
