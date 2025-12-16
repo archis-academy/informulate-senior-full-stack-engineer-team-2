@@ -17,6 +17,36 @@ interface LectureHeaderProps {
   lastUpdated: string;
 }
 
+function StudentAvatar({ student, zIndex }: { student: Student; zIndex: number }) {
+  const [imageError, setImageError] = useState(false);
+
+  const getInitials = (name: string): string =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+
+  return (
+    <div
+      className={styles.avatar}
+      style={{ zIndex }}
+      title={student.name}
+    >
+      {!imageError && student.avatar ? (
+        <img
+          src={student.avatar}
+          alt={student.name}
+          onError={() => setImageError(true)}
+        />
+      ) : (
+        <span className={styles.avatarInitials}>{getInitials(student.name)}</span>
+      )}
+    </div>
+  );
+}
+
 export default function LectureHeader({
   lectureNumber,
   lectureTitle,
@@ -25,21 +55,7 @@ export default function LectureHeader({
   commentCount,
   lastUpdated,
 }: LectureHeaderProps) {
-  /**
-   * Format number with comma separators
-   */
   const formatNumber = (num: number): string => num.toLocaleString();
-
-  /**
-   * Get initials from name
-   */
-  const getInitials = (name: string): string =>
-    name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
 
   const displayAvatars: Student[] =
     studentAvatars.length > 0
@@ -58,45 +74,25 @@ export default function LectureHeader({
         {/* Left Column */}
         <div className={styles.leftColumn}>
           <h2 className={styles.lectureTitle}>
-            {lectureNumber && (
-              <span className={styles.lectureNumber}>{lectureNumber}. </span>
-            )}
+            {lectureNumber && <span className={styles.lectureNumber}>{lectureNumber}. </span>}
             {lectureTitle}
           </h2>
 
           <div className={styles.studentsInfo}>
             {/* Student Avatars */}
             <div className={styles.avatarStack} aria-label="Students watching">
-              {displayAvatars.map((student, index) => {
-                const [imageError, setImageError] = useState(false);
-
-                return (
-                  <div
-                    key={student.id}
-                    className={styles.avatar}
-                    style={{ zIndex: displayAvatars.length - index }}
-                    title={student.name}
-                  >
-                    {!imageError && student.avatar ? (
-                      <img
-                        src={student.avatar}
-                        alt={student.name}
-                        onError={() => setImageError(true)}
-                      />
-                    ) : null}
-                    <span className={styles.avatarInitials}>
-                      {getInitials(student.name)}
-                    </span>
-                  </div>
-                );
-              })}
+              {displayAvatars.map((student, index) => (
+                <StudentAvatar
+                  key={student.id}
+                  student={student}
+                  zIndex={displayAvatars.length - index}
+                />
+              ))}
             </div>
 
             {/* Student Count */}
             <div className={styles.studentCount}>
-              <span className={styles.countNumber}>
-                {formatNumber(studentsWatching)}
-              </span>
+              <span className={styles.countNumber}>{formatNumber(studentsWatching)}</span>
               <span className={styles.countLabel}>Students watching</span>
             </div>
           </div>
@@ -121,9 +117,7 @@ export default function LectureHeader({
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
             </svg>
             <div className={styles.metaText}>
-              <span className={styles.metaValue}>
-                {formatNumber(commentCount)}
-              </span>
+              <span className={styles.metaValue}>{formatNumber(commentCount)}</span>
               <span className={styles.metaLabel}>Comments</span>
             </div>
           </div>
