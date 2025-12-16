@@ -152,7 +152,7 @@
 
   &:hover {
     background-color: $white;
-    border-color:$color-accent-orange;
+    border-color: $color-accent-orange;
     box-shadow: $shadow-md;
     transform: translateY(pxToRem(-4));
   }
@@ -176,7 +176,7 @@
   width: pxToRem(48);
   height: pxToRem(48);
   min-width: pxToRem(48);
-  background-color:$color-accent-orange;
+  background-color: $color-accent-orange;
   color: $white;
   font-size: pxToRem(20);
   font-weight: $font-bold;
@@ -267,8 +267,8 @@
 
   &:hover {
     background-color: #fff8f6;
-    border-color:$color-accent-orange;
-    color:$color-accent-orange;
+    border-color: $color-accent-orange;
+    color: $color-accent-orange;
   }
 
   &:focus {
