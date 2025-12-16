@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import VideoPlayer from "@components/video-player/video-player";
 import styles from "./course-details.module.scss";
@@ -25,6 +25,14 @@ export default function CourseDetailsPage() {
   const navPlaceholderRef = useRef<HTMLDivElement | null>(null);
   // Distance in pixels from the top at which the navigation becomes active
   const SCROLL_OFFSET = 150;
+  const [navHeight, setNavHeight] = useState(0);
+  
+  useLayoutEffect(() => {
+    if (navRef.current) {
+      setNavHeight(navRef.current.offsetHeight);
+    }
+  }, []);
+  
   useEffect(() => {
     const handleScroll = (): void => {
       if (navPlaceholderRef.current) {
@@ -62,7 +70,6 @@ export default function CourseDetailsPage() {
 
       const section = sectionRefs.current[sectionId];
       if (section) {
-        const navHeight = navRef.current?.offsetHeight || 60;
         const sectionTop = section.offsetTop - navHeight - 20;
 
         window.scrollTo({
