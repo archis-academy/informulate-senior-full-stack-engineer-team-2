@@ -39,8 +39,8 @@ export default function PriceFilter({
   );
 
   const sliderTrackRef = useRef<HTMLDivElement>(null);
-
-  const MIN_GAP = Math.round((maxPrice - minPrice) * 0.05);
+  const MIN_PRICE_GAP_PERCENTAGE = 0.05;
+  const MIN_GAP = Math.round((maxPrice - minPrice) * MIN_PRICE_GAP_PERCENTAGE);
 
   useEffect(() => {
     if (onFilterChange) {
