@@ -16,6 +16,14 @@ interface LectureHeaderProps {
   lastUpdated: string;
 }
 
+const DEFAULT_STUDENT_AVATARS: Student[] = [
+  { id: "1", name: "John Doe", avatar: "" },
+  { id: "2", name: "Sarah Smith", avatar: "" },
+  { id: "3", name: "Mike Johnson", avatar: "" },
+  { id: "4", name: "Emily Brown", avatar: "" },
+  { id: "5", name: "David Lee", avatar: "" },
+];
+
 function Avatar({ student }: { student: Student }) {
   const [imgError, setImgError] = useState(false);
 
@@ -57,17 +65,11 @@ export default function LectureHeader({
 }: LectureHeaderProps) {
   const formatNumber = (num: number): string => num.toLocaleString();
   const MAX_DISPLAY_AVATARS = 5;
-
+  
   const displayAvatars: Student[] =
-    studentAvatars.length > 0
-      ? studentAvatars.slice(0, MAX_DISPLAY_AVATARS)
-      : [
-          { id: "1", name: "John Doe", avatar: "" },
-          { id: "2", name: "Sarah Smith", avatar: "" },
-          { id: "3", name: "Mike Johnson", avatar: "" },
-          { id: "4", name: "Emily Brown", avatar: "" },
-          { id: "5", name: "David Lee", avatar: "" },
-        ].slice(0, MAX_DISPLAY_AVATARS);
+  studentAvatars.length > 0
+    ? studentAvatars.slice(0, MAX_DISPLAY_AVATARS)
+    : DEFAULT_STUDENT_AVATARS.slice(0, MAX_DISPLAY_AVATARS);
 
   return (
     <header className={styles.lectureHeader}>
