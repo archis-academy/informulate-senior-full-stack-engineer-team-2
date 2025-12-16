@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styles from "./popular-tools.module.scss";
+import { Link } from "react-router-dom";
 
-// Tool Card Interface
 interface Tool {
   id: number;
   name: string;
@@ -9,13 +9,11 @@ interface Tool {
   icon?: string;
 }
 
-// Keyword Interface
 interface Keyword {
   id: number;
   name: string;
 }
 
-// Placeholder data for tools
 const tools: Tool[] = [
   { id: 1, name: "ChatGPT", courseCount: 1250 },
   { id: 2, name: "Python", courseCount: 3420 },
@@ -34,7 +32,6 @@ const tools: Tool[] = [
   { id: 15, name: "Swift", courseCount: 540 },
 ];
 
-// Placeholder data for keywords
 const keywords: Keyword[] = [
   { id: 1, name: "Web Development" },
   { id: 2, name: "Machine Learning" },
@@ -53,16 +50,14 @@ const keywords: Keyword[] = [
   { id: 15, name: "Photography" },
 ];
 
-// Reusable Tool Card Component
 interface ToolCardProps {
   tool: Tool;
 }
 
 function ToolCard({ tool }: ToolCardProps) {
   return (
-    <a href={`/tools/${tool.id}`} className={styles.toolCard}>
+    <Link to={`/tools/${tool.id}`} className={styles.toolCard}>
       <div className={styles.toolIcon}>
-        {/* Placeholder icon - first letter of tool name */}
         <span>{tool.name.charAt(0)}</span>
       </div>
       <div className={styles.toolInfo}>
@@ -71,11 +66,10 @@ function ToolCard({ tool }: ToolCardProps) {
           {tool.courseCount.toLocaleString()} courses
         </p>
       </div>
-    </a>
+    </Link>
   );
 }
 
-// Reusable Keyword Tag Component
 interface KeywordTagProps {
   keyword: Keyword;
 }
@@ -83,19 +77,15 @@ interface KeywordTagProps {
 function KeywordTag({ keyword }: KeywordTagProps) {
   return (
     <li className={styles.keywordItem}>
-      <a href={`/keywords/${keyword.id}`} className={styles.keywordTag}>
+      <Link to={`/keywords/${keyword.id}`} className={styles.keywordTag}>
         {keyword.name}
-      </a>
+      </Link>
     </li>
   );
 }
 
-// Main Popular Tools Section Component
 export default function PopularTools() {
-  // Ref for the scrollable container
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  // Scroll amount in pixels
   const SCROLL_AMOUNT = 300;
 
   /**
@@ -118,7 +108,6 @@ export default function PopularTools() {
   return (
     <section className={styles.popularToolsSection} aria-labelledby="popular-tools-heading">
       <div className={styles.container}>
-        {/* Section Header */}
         <div className={styles.sectionHeader}>
           <h2 id="popular-tools-heading" className={styles.sectionTitle}>
             Popular Tools
@@ -128,9 +117,7 @@ export default function PopularTools() {
           </p>
         </div>
 
-        {/* Scrollable Tools Container */}
         <div className={styles.toolsWrapper}>
-          {/* Left Navigation Button */}
           <button
             type="button"
             className={`${styles.navButton} ${styles.navButtonLeft}`}
@@ -152,7 +139,6 @@ export default function PopularTools() {
             </svg>
           </button>
 
-          {/* Scrollable Container */}
           <div
             ref={scrollContainerRef}
             className={styles.toolsScrollContainer}
@@ -164,7 +150,6 @@ export default function PopularTools() {
             ))}
           </div>
 
-          {/* Right Navigation Button */}
           <button
             type="button"
             className={`${styles.navButton} ${styles.navButtonRight}`}
@@ -187,7 +172,6 @@ export default function PopularTools() {
           </button>
         </div>
 
-        {/* Popular Keywords Section */}
         <div className={styles.keywordsSection}>
           <h3 className={styles.keywordsTitle}>Popular Keywords:</h3>
           <ul className={styles.keywordsList} role="list">
