@@ -292,8 +292,6 @@ export default function CourseWatchPage() {
                 comments={commentsData}
                 totalCount={154}
                 currentUserName="John Doe"
-                onCommentSubmit={(content) => console.log("New comment:", content)}
-                onReplySubmit={(commentId, content) => console.log(`Reply to ${commentId}:`, content)}
               />
             </div>
           </div>
