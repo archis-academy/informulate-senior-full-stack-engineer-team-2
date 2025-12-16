@@ -1,8 +1,6 @@
 @use "@styles/_variables.scss" as *;
 @use "@styles/_functions.scss" as *;
 
-$color-accent-orange: #e35c33;
-
 .popularToolsSection {
   width: 100%;
   background-color: $white;
@@ -85,7 +83,7 @@ $color-accent-orange: #e35c33;
   }
 
   &:focus {
-    outline: 2px solid$color-accent-orange;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 
@@ -160,7 +158,7 @@ $color-accent-orange: #e35c33;
   }
 
   &:focus {
-    outline: 2px solid$color-accent-orange;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 
@@ -274,7 +272,7 @@ $color-accent-orange: #e35c33;
   }
 
   &:focus {
-    outline: 2px solid$color-accent-orange;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 
