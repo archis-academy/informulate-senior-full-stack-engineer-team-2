@@ -26,7 +26,9 @@ export default function CourseDetailsPage() {
   // Distance in pixels from the top at which the navigation becomes active
   const SCROLL_OFFSET = 150;
   const [navHeight, setNavHeight] = useState(0);
-  
+  // Extra spacing below the sticky navigation when scrolling to a section
+  const NAV_SCROLL_PADDING = 20;
+
   useLayoutEffect(() => {
     if (navRef.current) {
       setNavHeight(navRef.current.offsetHeight);
@@ -69,7 +71,7 @@ const handleNavClick = useCallback(
     e.preventDefault();
     const section = sectionRefs.current[sectionId];
     if (section) {
-      const sectionTop = section.offsetTop - navHeight - 20;
+      const sectionTop = section.offsetTop - navHeight - NAV_SCROLL_PADDING;
       window.scrollTo({ top: sectionTop, behavior: "smooth" });
       setActiveSection(sectionId);
     }

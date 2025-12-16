@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import styles from "./popular-tools.module.scss";
 import { Link } from "react-router-dom";
+import Icon from "@components/icon/icon";
 
 interface Tool {
   id: number;
@@ -126,19 +127,7 @@ export default function PopularTools() {
             onClick={() => handleScroll("left")}
             aria-label="Scroll left"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
+            <Icon name="arrow-left" aria-hidden />
           </button>
 
           <div
@@ -151,26 +140,13 @@ export default function PopularTools() {
               <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
-
           <button
             type="button"
             className={`${styles.navButton} ${styles.navButtonRight}`}
             onClick={() => handleScroll("right")}
             aria-label="Scroll right"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <Icon name="arrow-right" aria-hidden />
           </button>
         </div>
 
