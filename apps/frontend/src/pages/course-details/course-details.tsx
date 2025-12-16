@@ -24,13 +24,13 @@ export default function CourseDetailsPage() {
   const navRef = useRef<HTMLElement | null>(null);
   const navPlaceholderRef = useRef<HTMLDivElement | null>(null);
   
-  // Track if we're programmatically scrolling to prevent conflicts
   const isScrollingRef = useRef<boolean>(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const NAV_SCROLL_PADDING = 20;
+  const SCROLL_POSITION_OFFSET = 10; 
+  const SCROLL_ANIMATION_DURATION = 1000;
 
-  // Measure nav height once on mount and when it might change
   useLayoutEffect(() => {
     const measureNavHeight = () => {
       if (navRef.current) {
@@ -40,7 +40,6 @@ export default function CourseDetailsPage() {
 
     measureNavHeight();
     
-    // Re-measure on resize
     window.addEventListener("resize", measureNavHeight);
     return () => window.removeEventListener("resize", measureNavHeight);
   }, []);
@@ -56,7 +55,7 @@ export default function CourseDetailsPage() {
       },
       {
         root: null,
-        threshold: 1.0, // Change from 0 to 1.0
+        threshold: 1.0, 
         rootMargin: "0px 0px 0px 0px",
       }
     );
@@ -68,23 +67,22 @@ export default function CourseDetailsPage() {
     };
   }, []);
 
-  // Handle active section detection on scroll
   useEffect(() => {
     const handleScroll = (): void => {
-      // Skip if we're in the middle of a programmatic scroll
       if (isScrollingRef.current) return;
 
-      const scrollPosition = window.scrollY + navHeight + NAV_SCROLL_PADDING + 10;
-      if (!navItems[0]) return;
-      let currentSection = navItems[0].id;
-
+      let currentSection = navItems[0]?.id ?? "";
       for (const item of navItems) {
         const section = sectionRefs.current[item.id];
-        if (section && section.offsetTop <= scrollPosition) {
-          currentSection = item.id;
+        if (section) {
+          const sectionTop = section.offsetTop - navHeight - NAV_SCROLL_PADDING - SCROLL_POSITION_OFFSET;
+          const sectionBottom = sectionTop + section.offsetHeight;
+          if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+            currentSection = item.id;
+            break;
+          }
         }
       }
-
       setActiveSection(currentSection);
     };
 
@@ -103,19 +101,13 @@ export default function CourseDetailsPage() {
       const section = sectionRefs.current[sectionId];
       if (!section) return;
 
-      // Set scrolling flag to prevent scroll handler interference
       isScrollingRef.current = true;
       
-      // Clear any existing timeout
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
 
-      // Set active section immediately for responsive UI
       setActiveSection(sectionId);
-
-      // Calculate scroll position
-      // Use a fixed offset based on measured nav height
       const targetPosition = Math.max(
         section.offsetTop - navHeight - NAV_SCROLL_PADDING,
         0
@@ -125,16 +117,13 @@ export default function CourseDetailsPage() {
         top: targetPosition,
         behavior: "smooth",
       });
-
-      // Reset scrolling flag after animation completes
       scrollTimeoutRef.current = setTimeout(() => {
         isScrollingRef.current = false;
-      }, 1000); // Typical smooth scroll duration
+      }, SCROLL_ANIMATION_DURATION);
     },
     [navHeight]
   );
 
-  // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
       if (scrollTimeoutRef.current) {
@@ -160,7 +149,6 @@ export default function CourseDetailsPage() {
           />
         </div>
 
-        {/* Fixed height placeholder - always reserve space */}
         <div
           ref={navPlaceholderRef}
           className={styles.navPlaceholder}
