@@ -1,23 +1,17 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import VideoPlayer from "@components/video-player/video-player";
 import LectureHeader from "@components/lecture-header/lecture-header";
 import AttachedFiles from "@components/attached-files/attached-files";
 import CourseComments from "@components/course-comments/course-comments";
 import styles from "./course-watch.module.scss";
+import { useStickyNav } from "../../hooks/use-sticky-nav";
 
 interface NavItem {
   id: string;
   label: string;
   count?: number;
 }
-
-const navItems: NavItem[] = [
-  { id: "description", label: "Description" },
-  { id: "lecture-notes", label: "Lectures Notes" },
-  { id: "attached-files", label: "Attach File", count: 1 },
-  { id: "comments", label: "Comments" },
-];
 
 const attachedFiles = [
   {
@@ -114,57 +108,21 @@ const lectureData = {
 };
 
 export default function CourseWatchPage() {
-  const [activeSection, setActiveSection] = useState<string>("description");
-  const [isNavSticky, setIsNavSticky] = useState<boolean>(false);
-  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
-  const navRef = useRef<HTMLElement | null>(null);
-  const navPlaceholderRef = useRef<HTMLDivElement | null>(null);
+  const navItems = useMemo<NavItem[]>(() => [
+    { id: "description", label: "Description" },
+    { id: "lecture-notes", label: "Lecture Notes" },
+    { id: "attached-files", label: "Attach File", count: attachedFiles.length },
+    { id: "comments", label: "Comments", count: lectureData.commentCount },
+  ], []);
 
-  useEffect(() => {
-    const handleScroll = (): void => {
-      if (navPlaceholderRef.current) {
-        const navPlaceholderTop = navPlaceholderRef.current.getBoundingClientRect().top;
-        setIsNavSticky(navPlaceholderTop <= 0);
-      }
-
-      const navHeight = navRef.current?.offsetHeight || 60;
-      const scrollPosition = window.scrollY + navHeight + 50;
-
-      for (const item of navItems) {
-        const section = sectionRefs.current[item.id];
-        if (section) {
-          const sectionTop = section.offsetTop;
-          const sectionBottom = sectionTop + section.offsetHeight;
-
-          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            setActiveSection(item.id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string): void => {
-      e.preventDefault();
-      const section = sectionRefs.current[sectionId];
-      if (section) {
-        const navHeight = navRef.current?.offsetHeight || 60;
-        const sectionTop = section.offsetTop - navHeight - 20;
-        window.scrollTo({ top: sectionTop, behavior: "smooth" });
-        setActiveSection(sectionId);
-      }
-    },
-    []
-  );
+  const {
+    activeSection,
+    isNavSticky,
+    sectionRefs,
+    navRef,
+    navPlaceholderRef,
+    handleNavClick,
+  } = useStickyNav(navItems);
 
   return (
     <main className={styles.courseWatchPage}>
@@ -290,7 +248,7 @@ export default function CourseWatchPage() {
             >
               <CourseComments
                 comments={commentsData}
-                totalCount={154}
+                totalCount={lectureData.commentCount}
                 currentUserName="John Doe"
               />
             </div>

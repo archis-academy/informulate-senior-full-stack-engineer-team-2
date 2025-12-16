@@ -1,79 +1,29 @@
-import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import VideoPlayer from "@components/video-player/video-player";
 import styles from "./course-details.module.scss";
+import { useStickyNav } from "../../hooks/use-sticky-nav";
 
 interface NavItem {
   id: string;
   label: string;
 }
 
-const navItems: NavItem[] = [
-  { id: "overview", label: "Overview" },
-  { id: "curriculum", label: "Curriculum" },
-  { id: "instructor", label: "Instructor" },
-  { id: "review", label: "Review" },
-];
-
 export default function CourseDetailsPage() {
-  const [activeSection, setActiveSection] = useState<string>("overview");
+  const navItems: NavItem[] = [
+    { id: "overview", label: "Overview" },
+    { id: "curriculum", label: "Curriculum" },
+    { id: "instructor", label: "Instructor" },
+    { id: "review", label: "Review" },
+  ];
 
-  const [isNavSticky, setIsNavSticky] = useState<boolean>(false);
-
-  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
-  const navRef = useRef<HTMLElement | null>(null);
-  const navPlaceholderRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleScroll = (): void => {
-      if (navPlaceholderRef.current) {
-        const navTop = navPlaceholderRef.current.getBoundingClientRect().top;
-        setIsNavSticky(navTop <= 0);
-      }
-
-      const scrollPosition = window.scrollY + 150;
-
-      for (const item of navItems) {
-        const section = sectionRefs.current[item.id];
-        if (section) {
-          const sectionTop = section.offsetTop;
-          const sectionBottom = sectionTop + section.offsetHeight;
-
-          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            setActiveSection(item.id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string): void => {
-      e.preventDefault();
-
-      const section = sectionRefs.current[sectionId];
-      if (section) {
-        const navHeight = navRef.current?.offsetHeight || 60;
-        const sectionTop = section.offsetTop - navHeight - 20;
-
-        window.scrollTo({
-          top: sectionTop,
-          behavior: "smooth",
-        });
-
-        setActiveSection(sectionId);
-      }
-    },
-    []
-  );
+  const {
+    activeSection,
+    isNavSticky,
+    sectionRefs,
+    navRef,
+    navPlaceholderRef,
+    handleNavClick,
+  } = useStickyNav(navItems);
 
   return (
     <main className={styles.courseDetailsPage}>
