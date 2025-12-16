@@ -127,7 +127,7 @@ export default function CourseWatchPage() {
   return (
     <main className={styles.courseWatchPage}>
       <div className={styles.topBar}>
-        <Link to="/course-detail" className={styles.backLink}>
+        <Link to="/course-details" className={styles.backLink}>
           ← Back to Course
         </Link>
       </div>

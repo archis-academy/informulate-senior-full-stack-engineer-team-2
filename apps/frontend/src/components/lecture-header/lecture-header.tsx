@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./lecture-header.module.scss";
 
-// Interfaces
 interface Student {
   id: string;
   name: string;
@@ -16,6 +15,14 @@ interface LectureHeaderProps {
   commentCount: number;
   lastUpdated: string;
 }
+
+const DEFAULT_STUDENT_AVATARS: Student[] = [
+  { id: "1", name: "John Doe", avatar: "" },
+  { id: "2", name: "Sarah Smith", avatar: "" },
+  { id: "3", name: "Mike Johnson", avatar: "" },
+  { id: "4", name: "Emily Brown", avatar: "" },
+  { id: "5", name: "David Lee", avatar: "" },
+];
 
 /**
  * StudentAvatar handles its own imageError state
@@ -32,11 +39,7 @@ function StudentAvatar({ student, zIndex }: { student: Student; zIndex: number }
       .slice(0, 2);
 
   return (
-    <div
-      className={styles.avatar}
-      style={{ zIndex }}
-      title={student.name}
-    >
+    <div className={styles.avatar} style={{ zIndex }} title={student.name}>
       {student.avatar && !imageError ? (
         <img
           src={student.avatar}
@@ -58,31 +61,26 @@ export default function LectureHeader({
   commentCount,
   lastUpdated,
 }: LectureHeaderProps) {
-  const formatNumber = (num: number) => num.toLocaleString();
+  const formatNumber = (num: number): string => num.toLocaleString();
+  const MAX_DISPLAY_AVATARS = 5;
 
   const displayAvatars: Student[] =
     studentAvatars.length > 0
-      ? studentAvatars.slice(0, 5)
-      : [
-          { id: "1", name: "John Doe", avatar: "" },
-          { id: "2", name: "Sarah Smith", avatar: "" },
-          { id: "3", name: "Mike Johnson", avatar: "" },
-          { id: "4", name: "Emily Brown", avatar: "" },
-          { id: "5", name: "David Lee", avatar: "" },
-        ];
+      ? studentAvatars.slice(0, MAX_DISPLAY_AVATARS)
+      : DEFAULT_STUDENT_AVATARS.slice(0, MAX_DISPLAY_AVATARS);
 
   return (
     <header className={styles.lectureHeader}>
       <div className={styles.container}>
-        {/* Left Column */}
         <div className={styles.leftColumn}>
           <h2 className={styles.lectureTitle}>
-            {lectureNumber && <span className={styles.lectureNumber}>{lectureNumber}. </span>}
+            {lectureNumber && (
+              <span className={styles.lectureNumber}>{lectureNumber}. </span>
+            )}
             {lectureTitle}
           </h2>
 
           <div className={styles.studentsInfo}>
-            {/* Student Avatars */}
             <div className={styles.avatarStack} aria-label="Students watching">
               {displayAvatars.map((student, index) => (
                 <StudentAvatar
@@ -93,17 +91,16 @@ export default function LectureHeader({
               ))}
             </div>
 
-            {/* Student Count */}
             <div className={styles.studentCount}>
-              <span className={styles.countNumber}>{formatNumber(studentsWatching)}</span>
+              <span className={styles.countNumber}>
+                {formatNumber(studentsWatching)}
+              </span>
               <span className={styles.countLabel}>Students watching</span>
             </div>
           </div>
         </div>
 
-        {/* Right Column */}
         <div className={styles.rightColumn}>
-          {/* Comment Count */}
           <div className={styles.metaItem}>
             <svg
               width="20"
@@ -125,10 +122,8 @@ export default function LectureHeader({
             </div>
           </div>
 
-          {/* Divider */}
           <div className={styles.divider} aria-hidden="true" />
 
-          {/* Last Updated */}
           <div className={styles.metaItem}>
             <svg
               width="20"

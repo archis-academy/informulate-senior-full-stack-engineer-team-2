@@ -1,5 +1,8 @@
 @use "@styles/_functions.scss" as *;
 
+$color-accent-orange: #e35c33;
+$color-background-hover-light: #f2f2f2;
+$color-background-page: #f7f9fa;
 
 $white: #ffffff;
 $black: #000000;
@@ -36,7 +39,6 @@ $font-medium: 500;
 $font-semibold: 600;
 $font-bold: 700;
 
-
 $spacing-xs: pxToRem(4);
 $spacing-sm: pxToRem(8);
 $spacing-md: pxToRem(16);
@@ -45,23 +47,19 @@ $spacing-xl: pxToRem(32);
 $spacing-2xl: pxToRem(48);
 $spacing-3xl: pxToRem(64);
 
-
 $radius-sm: pxToRem(4);
 $radius-md: pxToRem(8);
 $radius-lg: pxToRem(12);
 $radius-xl: pxToRem(16);
 $radius-full: 9999px;
 
-
 $shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 $shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 $shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-
 $transition-fast: 150ms ease;
 $transition-base: 200ms ease;
 $transition-slow: 300ms ease;
-
 
 $desktop-xxl: pxToRem(1920);
 $desktop-xl: pxToRem(1600);

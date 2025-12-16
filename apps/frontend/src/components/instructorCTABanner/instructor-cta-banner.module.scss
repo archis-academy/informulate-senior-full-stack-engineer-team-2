@@ -15,7 +15,7 @@
 }
 
 .leftColumn {
-  background-color: #e35c33;
+  background-color: $color-accent-orange;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -79,7 +79,7 @@
   gap: $spacing-md;
   padding: pxToRem(16) pxToRem(28);
   background-color: $white;
-  color: #e35c33;
+  color: $color-accent-orange;
   font-size: pxToRem(16);
   font-weight: $font-bold;
   font-family: $primary-font;
@@ -91,7 +91,7 @@
   width: fit-content;
 
   &:hover {
-    background-color: #f2f2f2;
+    background-color: $color-background-hover-light; // use the variable instead of hardcoded value
     transform: translateY(pxToRem(-2));
     box-shadow: $shadow-lg;
   }
@@ -103,7 +103,7 @@
 
   &:active {
     transform: translateY(0);
-  }
+  }  
 }
 
 .buttonText {
@@ -117,7 +117,7 @@
   transition: transform $transition-base;
 
   svg {
-    stroke: #e35c33;
+    stroke: $color-accent-orange;
     stroke-width: 2;
   }
 
@@ -226,7 +226,7 @@
 
 .stepItem--2 .stepCircle {
   background-color: #fff0eb;
-  color: #e35c33;
+  color: $color-accent-orange;
 }
 
 .stepItem--3 .stepCircle {
