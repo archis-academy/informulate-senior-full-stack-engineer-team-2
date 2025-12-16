@@ -3,7 +3,22 @@ import VideoPlayer from "@components/video-player/video-player";
 import LectureHeader from "@components/lecture-header/lecture-header";
 import styles from "./course-watch.module.scss";
 
-const lectureData = {
+interface StudentAvatar {
+  id: string;
+  name: string;
+  avatar: string;
+}
+
+interface LectureData {
+  lectureNumber: number;
+  lectureTitle: string;
+  studentsWatching: number;
+  studentAvatars: StudentAvatar[];
+  commentCount: number;
+  lastUpdated: string;
+}
+
+const lectureData: LectureData = {
   lectureNumber: 2,
   lectureTitle: "Sign up in Webflow",
   studentsWatching: 512,
@@ -22,7 +37,7 @@ export default function CourseWatchPage() {
   return (
     <main className={styles.courseWatchPage}>
       <div className={styles.topBar}>
-        <Link to="/course-detail" className={styles.backLink}>
+        <Link to="/course-details" className={styles.backLink}>
           ← Back to Course
         </Link>
       </div>
@@ -35,14 +50,7 @@ export default function CourseWatchPage() {
         />
       </div>
 
-      <LectureHeader
-        lectureNumber={lectureData.lectureNumber}
-        lectureTitle={lectureData.lectureTitle}
-        studentsWatching={lectureData.studentsWatching}
-        studentAvatars={lectureData.studentAvatars}
-        commentCount={lectureData.commentCount}
-        lastUpdated={lectureData.lastUpdated}
-      />
+      <LectureHeader {...lectureData} />
 
       <div className={styles.contentSection}>
         <p>Lecture content and comments section</p>

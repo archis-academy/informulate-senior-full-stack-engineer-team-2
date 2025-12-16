@@ -78,7 +78,7 @@
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 }
@@ -101,7 +101,7 @@
   top: $spacing-lg;
   right: $spacing-lg;
   font-size: pxToRem(18);
-  color: #e35c33;
+  color: $color-accent-orange;
   opacity: 0.5;
   transition: all $transition-base;
 }
