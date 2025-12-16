@@ -11,7 +11,7 @@ function Home() {
         </Link>
       </div>
        <div style={{ padding: "4rem", background: "#1e293b" }}>
-        <Link to="/course-detail" style={{ color: "white" }}>
+        <Link to="/course-details" style={{ color: "white" }}>
           → Go to Course Detail Page 
         </Link>
       </div>
