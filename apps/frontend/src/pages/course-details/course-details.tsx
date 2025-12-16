@@ -64,24 +64,18 @@ export default function CourseDetailsPage() {
     };
   }, []);
 
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string): void => {
-      e.preventDefault();
-
-      const section = sectionRefs.current[sectionId];
-      if (section) {
-        const sectionTop = section.offsetTop - navHeight - 20;
-
-        window.scrollTo({
-          top: sectionTop,
-          behavior: "smooth",
-        });
-
-        setActiveSection(sectionId);
-      }
-    },
-    []
-  );
+const handleNavClick = useCallback(
+  (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string): void => {
+    e.preventDefault();
+    const section = sectionRefs.current[sectionId];
+    if (section) {
+      const sectionTop = section.offsetTop - navHeight - 20;
+      window.scrollTo({ top: sectionTop, behavior: "smooth" });
+      setActiveSection(sectionId);
+    }
+  },
+  [navHeight]  
+);
 
   return (
     <main className={styles.courseDetailsPage}>

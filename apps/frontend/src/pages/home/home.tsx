@@ -1,3 +1,4 @@
+import styles from "./home.module.scss";
 import InstructorCTABanner from "@components/instructorCTABanner/InstructorCTABanner";
 import PopularTools from "@components/popular-tools/popular-tools";
 import { Link } from "react-router-dom";
@@ -5,14 +6,14 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <main>
-      <div style={{ padding: "1rem", background: "#1e293b" }}>
-        <Link to="/filter-demo" style={{ color: "white" }}>
+      <div className={styles.container}>
+        <Link to="/filter-demo" className={styles.link}>
           → Go to Price Filter Demo
         </Link>
       </div>
-       <div style={{ padding: "4rem", background: "#1e293b" }}>
-        <Link to="/course-details" style={{ color: "white" }}>
-          → Go to Course Detail Page 
+      <div className={styles.largeContainer}>
+        <Link to="/course-details" className={styles.link}>
+          → Go to Course Detail Page
         </Link>
       </div>
       <PopularTools />
