@@ -24,7 +24,6 @@ interface VideoPlayerProps {
   aspectRatio?: "16:9" | "4:3" | "21:9" | "1:1";
   /** If true, the video will automatically play and will be muted to comply with browser policies. */
   autoPlay?: boolean;
-  autoPlay?: boolean;
   muted?: boolean;
   loop?: boolean;
   controls?: boolean;
