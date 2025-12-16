@@ -57,7 +57,7 @@ export default function LectureHeader({
 }: LectureHeaderProps) {
   const formatNumber = (num: number): string => num.toLocaleString();
   const MAX_DISPLAY_AVATARS = 5;
-  
+
   const displayAvatars: Student[] =
     studentAvatars.length > 0
       ? studentAvatars.slice(0, MAX_DISPLAY_AVATARS)
@@ -72,7 +72,6 @@ export default function LectureHeader({
   return (
     <header className={styles.lectureHeader}>
       <div className={styles.container}>
-        {/* Left Column */}
         <div className={styles.leftColumn}>
           <h2 className={styles.lectureTitle}>
             {lectureNumber && (
@@ -82,7 +81,6 @@ export default function LectureHeader({
           </h2>
 
           <div className={styles.studentsInfo}>
-            {/* Student Avatars */}
             <div className={styles.avatarStack} aria-label="Students watching">
               {displayAvatars.map((student, index) => (
                 <div
@@ -94,7 +92,6 @@ export default function LectureHeader({
               ))}
             </div>
 
-            {/* Student Count */}
             <div className={styles.studentCount}>
               <span className={styles.countNumber}>
                 {formatNumber(studentsWatching)}
@@ -104,9 +101,7 @@ export default function LectureHeader({
           </div>
         </div>
 
-        {/* Right Column */}
         <div className={styles.rightColumn}>
-          {/* Comment Count */}
           <div className={styles.metaItem}>
             <svg
               width="20"
@@ -130,10 +125,8 @@ export default function LectureHeader({
             </div>
           </div>
 
-          {/* Divider */}
           <div className={styles.divider} aria-hidden="true" />
 
-          {/* Last Updated */}
           <div className={styles.metaItem}>
             <svg
               width="20"
