@@ -34,6 +34,7 @@ export default function CourseCommentElement({
 }: CourseCommentElementProps) {
   const [showReplyForm, setShowReplyForm] = useState<boolean>(false);
   const [replyContent, setReplyContent] = useState<string>("");
+  const [imageError, setImageError] = useState<boolean>(false);
 
   const getInitials = (name: string): string => {
     return name
@@ -79,28 +80,14 @@ export default function CourseCommentElement({
     >
       <div className={styles.commentMain}>
         <div className={styles.avatar}>
-          {comment.avatar ? (
+          {!imageError && comment.avatar ? (
             <img
               src={comment.avatar}
               alt={comment.author}
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-                const parent = (e.target as HTMLImageElement).parentElement;
-                if (parent) {
-                  const initialsSpan = parent.querySelector(
-                    `.${styles.avatarInitials}`
-                  );
-                  if (initialsSpan) {
-                    (initialsSpan as HTMLElement).style.display = "flex";
-                  }
-                }
-              }}
+              onError={() => setImageError(true)}
             />
           ) : null}
-          <span
-            className={styles.avatarInitials}
-            style={{ display: comment.avatar ? "none" : "flex" }}
-          >
+          <span className={styles.avatarInitials}>
             {getInitials(comment.author)}
           </span>
         </div>
