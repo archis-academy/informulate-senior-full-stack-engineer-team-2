@@ -1,0 +1,176 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+.videoPlayer {
+  width: 100%;
+  max-width: 100%;
+  background-color: $black;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  font-family: $primary-font;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+}
+
+.aspectRatio16x9 .videoWrapper {
+  padding-top: 56.25%; 
+}
+
+.aspectRatio4x3 .videoWrapper {
+  padding-top: 75%; 
+}
+
+.aspectRatio21x9 .videoWrapper {
+  padding-top: 42.857%; 
+}
+
+.aspectRatio1x1 .videoWrapper {
+  padding-top: 100%; 
+}
+
+@supports (aspect-ratio: 16 / 9) {
+  .videoWrapper {
+    height: auto;
+    padding-top: 0 !important;
+  }
+
+  .aspectRatio16x9 .videoWrapper {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspectRatio4x3 .videoWrapper {
+    aspect-ratio: 4 / 3;
+  }
+
+  .aspectRatio21x9 .videoWrapper {
+    aspect-ratio: 21 / 9;
+  }
+
+  .aspectRatio1x1 .videoWrapper {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+.video,
+.iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+}
+
+.video {
+  background-color: $black;
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: -2px;
+  }
+}
+
+.iframe {
+  background-color: $black;
+}
+
+.loadingContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e293b;
+  z-index: 5;
+}
+
+.loadingSpinner {
+  color: $white;
+  animation: spin 1s linear infinite;
+
+  svg {
+    display: block;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fallbackContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e293b;
+}
+
+.fallbackContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-xl;
+  text-align: center;
+}
+
+.fallbackIcon {
+  color: #64748b;
+}
+
+.fallbackMessage {
+  font-size: pxToRem(14);
+  color: #94a3b8;
+  margin: 0;
+  max-width: pxToRem(300);
+  line-height: 1.5;
+}
+
+.fallbackImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: $tablet-m) {
+  .videoPlayer {
+    border-radius: $radius-md;
+  }
+
+  .fallbackContent {
+    padding: $spacing-lg;
+  }
+
+  .fallbackIcon {
+    width: pxToRem(36);
+    height: pxToRem(36);
+  }
+
+  .fallbackMessage {
+    font-size: pxToRem(13);
+  }
+}
+
+@media (max-width: $mobile-l) {
+  .videoPlayer {
+    border-radius: 0;
+  }
+}

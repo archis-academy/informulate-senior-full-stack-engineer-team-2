@@ -43,18 +43,29 @@ export default function PriceFilter({
   );
 
   const sliderTrackRef = useRef<HTMLDivElement>(null);
+  const FILTER_DEBOUNCE_MS = 300;
 
-  const MIN_GAP = Math.round((maxPrice - minPrice) * 0.05);
+  // Minimum gap between min and max slider values (5% of the total price range)
+  const MIN_GAP_PERCENTAGE = 0.05;
+  const MIN_GAP = Math.round(
+    (maxPrice - minPrice) * MIN_GAP_PERCENTAGE
+  );
 
   useEffect(() => {
-    if (onFilterChange) {
+    if (!onFilterChange) return;
+
+    const timeoutId = window.setTimeout(() => {
       onFilterChange({
         minValue,
         maxValue,
         isPaid,
         isFree,
       });
-    }
+    }, FILTER_DEBOUNCE_MS);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, [minValue, maxValue, isPaid, isFree, onFilterChange]);
 
   useEffect(() => {

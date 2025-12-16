@@ -1,0 +1,192 @@
+@use "@styles/_variables.scss" as *;
+@use "@styles/_functions.scss" as *;
+
+.courseDetailsPage {
+  min-height: 100vh;
+  background-color: #f7f9fa;
+  font-family: $primary-font;
+  padding-bottom: $spacing-3xl;
+}
+
+.container {
+  max-width: pxToRem(900);
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-xl 0 $spacing-xl;
+
+  @media (max-width: $tablet-m) {
+    padding: $spacing-xl $spacing-lg 0 $spacing-lg;
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  font-size: pxToRem(14);
+  font-weight: $font-medium;
+  color: #e35c33;
+  text-decoration: none;
+  margin-bottom: $spacing-lg;
+  transition: all $transition-base;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
+.pageTitle {
+  font-size: pxToRem(32);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  margin: 0 0 $spacing-xl 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(26);
+  }
+}
+
+.videoSection {
+  margin-bottom: $spacing-xl;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+}
+
+.sectionNav {
+  background-color: $white;
+  border-bottom: 1px solid $color-border;
+  z-index: 100;
+  transition: box-shadow $transition-base;
+}
+
+.sectionNavSticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $white; 
+  border-bottom: 1px solid $color-border; 
+  box-shadow: $shadow-md;
+  z-index: 1000; 
+}
+
+.navPlaceholder {
+  transition: height 0s;
+}
+
+.navContainer {
+  max-width: pxToRem(900);
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+
+  @media (max-width: $tablet-m) {
+    padding: 0 $spacing-lg;
+  }
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.navItem {
+  flex-shrink: 0;
+}
+
+.navLink {
+  display: block;
+  padding: $spacing-lg $spacing-xl;
+  font-size: pxToRem(15);
+  font-weight: $font-medium;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: all $transition-base;
+  white-space: nowrap;
+
+  &:hover {
+    color: $color-secondary;
+    background-color: #f7f9fa;
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: -2px;
+  }
+
+  @media (max-width: $tablet-m) {
+    padding: $spacing-md $spacing-lg;
+    font-size: pxToRem(14);
+  }
+}
+
+.navLinkActive {
+  color: $color-secondary;
+  border-bottom-color: $color-secondary;
+  font-weight: $font-semibold;
+}
+
+.contentSections {
+  padding-top: $spacing-xl;
+}
+
+.contentSection {
+  background-color: $white;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-xl;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: $tablet-m) {
+    padding: $spacing-lg;
+  }
+}
+
+.sectionTitle {
+  font-size: pxToRem(24);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  margin: 0 0 $spacing-lg 0;
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(20);
+  }
+}
+
+.sectionContent {
+  font-size: pxToRem(15);
+  color: $color-text-primary;
+  line-height: 1.8;
+
+  p {
+    margin: 0 0 $spacing-lg 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  strong {
+    color: $color-secondary;
+    font-weight: $font-semibold;
+  }
+}
