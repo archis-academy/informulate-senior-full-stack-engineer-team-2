@@ -23,6 +23,7 @@ export default function CourseDetailsPage() {
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const navRef = useRef<HTMLElement | null>(null);
   const navPlaceholderRef = useRef<HTMLDivElement | null>(null);
+  const NAV_SCROLL_OFFSET = 150;
 
   useEffect(() => {
     const handleScroll = (): void => {
@@ -31,7 +32,7 @@ export default function CourseDetailsPage() {
         setIsNavSticky(navTop <= 0);
       }
 
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition = window.scrollY + NAV_SCROLL_OFFSET;
 
       for (const item of navItems) {
         const section = sectionRefs.current[item.id];
