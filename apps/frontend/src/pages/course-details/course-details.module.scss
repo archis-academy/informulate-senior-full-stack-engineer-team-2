@@ -23,7 +23,7 @@
   align-items: center;
   font-size: pxToRem(14);
   font-weight: $font-medium;
-  color: #e35c33;
+  color: $color-accent-orange;
   text-decoration: none;
   margin-bottom: $spacing-lg;
   transition: all $transition-base;
@@ -33,7 +33,7 @@
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
     border-radius: $radius-sm;
   }
@@ -49,11 +49,11 @@
 
   &:hover {
     text-decoration: underline;
-    color: #e35c33;
+    color:$color-accent-orange;
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
     border-radius: $radius-sm;
   }
@@ -151,7 +151,7 @@
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: -2px;
   }
 
