@@ -17,10 +17,13 @@ interface LectureHeaderProps {
   lastUpdated: string;
 }
 
+/**
+ * StudentAvatar handles its own imageError state
+ */
 function StudentAvatar({ student, zIndex }: { student: Student; zIndex: number }) {
   const [imageError, setImageError] = useState(false);
 
-  const getInitials = (name: string): string =>
+  const getInitials = (name: string) =>
     name
       .split(" ")
       .map((n) => n[0])
@@ -34,7 +37,7 @@ function StudentAvatar({ student, zIndex }: { student: Student; zIndex: number }
       style={{ zIndex }}
       title={student.name}
     >
-      {!imageError && student.avatar ? (
+      {student.avatar && !imageError ? (
         <img
           src={student.avatar}
           alt={student.name}
@@ -55,7 +58,7 @@ export default function LectureHeader({
   commentCount,
   lastUpdated,
 }: LectureHeaderProps) {
-  const formatNumber = (num: number): string => num.toLocaleString();
+  const formatNumber = (num: number) => num.toLocaleString();
 
   const displayAvatars: Student[] =
     studentAvatars.length > 0
