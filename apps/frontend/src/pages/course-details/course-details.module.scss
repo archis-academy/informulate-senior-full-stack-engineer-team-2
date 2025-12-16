@@ -23,7 +23,7 @@
   align-items: center;
   font-size: pxToRem(14);
   font-weight: $font-medium;
-  color: #e35c33;
+  color: $color-accent-orange;
   text-decoration: none;
   margin-bottom: $spacing-lg;
   transition: all $transition-base;
@@ -33,10 +33,36 @@
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
     border-radius: $radius-sm;
   }
+}
+
+.breadcrumbLink {
+  display: inline-block;
+  margin-bottom: $spacing-md;
+  font-size: pxToRem(14);
+  color: $color-secondary;
+  text-decoration: none;
+  transition: all $transition-base;
+
+  &:hover {
+    text-decoration: underline;
+    color:$color-accent-orange;
+  }
+
+  &:focus {
+    outline: 2px solid $color-accent-orange;
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
+.contentContainer {
+  max-width: pxToRem(900);
+  margin: 0 auto;
+  padding: $spacing-xl;
 }
 
 .pageTitle {
@@ -69,10 +95,10 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: $white; 
-  border-bottom: 1px solid $color-border; 
+  background-color: $white;
+  border-bottom: 1px solid $color-border;
   box-shadow: $shadow-md;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .navPlaceholder {
@@ -125,7 +151,7 @@
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: -2px;
   }
 

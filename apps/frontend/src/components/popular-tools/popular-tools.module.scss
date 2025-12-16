@@ -1,9 +1,6 @@
 @use "@styles/_variables.scss" as *;
 @use "@styles/_functions.scss" as *;
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   POPULAR TOOLS SECTION
-   ═══════════════════════════════════════════════════════════════════════════ */
 .popularToolsSection {
   width: 100%;
   background-color: $white;
@@ -25,9 +22,6 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   SECTION HEADER
-   ═══════════════════════════════════════════════════════════════════════════ */
 .sectionHeader {
   margin-bottom: $spacing-xl;
   text-align: left;
@@ -59,17 +53,11 @@
   line-height: 1.5;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   TOOLS WRAPPER (Contains scroll container + nav buttons)
-   ═══════════════════════════════════════════════════════════════════════════ */
 .toolsWrapper {
   position: relative;
   margin-bottom: $spacing-2xl;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   NAVIGATION BUTTONS
-   ═══════════════════════════════════════════════════════════════════════════ */
 .navButton {
   position: absolute;
   top: 50%;
@@ -95,7 +83,7 @@
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 
@@ -125,9 +113,6 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   SCROLLABLE TOOLS CONTAINER
-   ═══════════════════════════════════════════════════════════════════════════ */
 .toolsScrollContainer {
   display: flex;
   gap: $spacing-lg;
@@ -152,9 +137,6 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   TOOL CARD
-   ═══════════════════════════════════════════════════════════════════════════ */
 .toolCard {
   display: flex;
   align-items: center;
@@ -170,13 +152,13 @@
 
   &:hover {
     background-color: $white;
-    border-color: #e35c33;
+    border-color: $color-accent-orange;
     box-shadow: $shadow-md;
     transform: translateY(pxToRem(-4));
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 
@@ -194,7 +176,7 @@
   width: pxToRem(48);
   height: pxToRem(48);
   min-width: pxToRem(48);
-  background-color: #e35c33;
+  background-color: $color-accent-orange;
   color: $white;
   font-size: pxToRem(20);
   font-weight: $font-bold;
@@ -236,9 +218,6 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   POPULAR KEYWORDS SECTION
-   ═══════════════════════════════════════════════════════════════════════════ */
 .keywordsSection {
   padding-top: $spacing-xl;
   border-top: 1px solid $color-border;
@@ -288,12 +267,12 @@
 
   &:hover {
     background-color: #fff8f6;
-    border-color: #e35c33;
-    color: #e35c33;
+    border-color: $color-accent-orange;
+    color: $color-accent-orange;
   }
 
   &:focus {
-    outline: 2px solid #e35c33;
+    outline: 2px solid $color-accent-orange;
     outline-offset: 2px;
   }
 

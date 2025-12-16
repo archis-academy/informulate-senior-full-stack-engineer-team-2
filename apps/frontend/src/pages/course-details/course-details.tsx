@@ -134,8 +134,8 @@ export default function CourseDetailsPage() {
 
   return (
     <main className={styles.courseDetailsPage}>
-      <div className={styles.container}>
-        <Link to="/" className={styles.backLink}>
+      <div className={styles.contentContainer}>
+        <Link to="/" className={styles.breadcrumbLink}>
           ← Back to Home
         </Link>
 
