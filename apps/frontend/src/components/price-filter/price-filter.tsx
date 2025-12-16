@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import styles from "./price-filter.module.scss";
 
 interface PriceFilterProps {
@@ -40,8 +40,11 @@ export default function PriceFilter({
 
   const sliderTrackRef = useRef<HTMLDivElement>(null);
 
-  const MIN_GAP = Math.round((maxPrice - minPrice) * 0.05);
-
+  const MIN_GAP = useMemo(
+    () => Math.round((maxPrice - minPrice) * 0.05),
+    [minPrice, maxPrice]
+  );
+  
   useEffect(() => {
     if (onFilterChange) {
       onFilterChange({
