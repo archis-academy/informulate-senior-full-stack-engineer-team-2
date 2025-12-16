@@ -105,3 +105,21 @@
   opacity: 0.5;
   transition: all $transition-base;
 }
+.container {
+  padding: 1rem;
+  background: #1e293b;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.largeContainer {
+  padding: 4rem;
+  background: #1e293b;
+}

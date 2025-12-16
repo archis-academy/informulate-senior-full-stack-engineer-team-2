@@ -57,10 +57,6 @@
   box-shadow: $shadow-md;
 }
 
-.navPlaceholder {
-  transition: height 0.1s ease;
-}
-
 .sectionNav {
   background-color: $white;
   border-bottom: 1px solid $color-border;
@@ -73,7 +69,14 @@
   top: 0;
   left: 0;
   right: 0;
+  background-color: $white; 
+  border-bottom: 1px solid $color-border; 
   box-shadow: $shadow-md;
+  z-index: 1000; 
+}
+
+.navPlaceholder {
+  transition: height 0s;
 }
 
 .navContainer {

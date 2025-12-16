@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import styles from "./popular-tools.module.scss";
 import { Link } from "react-router-dom";
+import Icon from "@components/icon/icon";
 
 interface Tool {
   id: number;
@@ -86,24 +87,33 @@ function KeywordTag({ keyword }: KeywordTagProps) {
 
 export default function PopularTools() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const SCROLL_AMOUNT = 300;
 
-  /**
-   * Handles scrolling the tool cards container
-   * @param direction - 'left' or 'right'
-   */
-  const handleScroll = (direction: "left" | "right") => {
+  const getScrollAmount = useCallback((): number => {
     const container = scrollContainerRef.current;
+    if (!container) return 300;
 
+    const firstCard = container.querySelector<HTMLElement>(`.${styles.toolCard}`);
+    if (!firstCard) return 300;
+
+    const cardWidth = firstCard.offsetWidth;
+    const containerStyles = window.getComputedStyle(container);
+    const gap = parseFloat(containerStyles.gap) || 16;
+
+    return cardWidth + gap;
+  }, []);
+
+  const handleScroll = useCallback((direction: "left" | "right") => {
+    const container = scrollContainerRef.current;
     if (!container) return;
 
-    const scrollAmount = direction === "left" ? -SCROLL_AMOUNT : SCROLL_AMOUNT;
+    const scrollAmount = getScrollAmount();
+    const scrollDirection = direction === "left" ? -scrollAmount : scrollAmount;
 
     container.scrollBy({
-      left: scrollAmount,
+      left: scrollDirection,
       behavior: "smooth",
     });
-  };
+  }, [getScrollAmount]);
 
   return (
     <section className={styles.popularToolsSection} aria-labelledby="popular-tools-heading">
@@ -124,19 +134,7 @@ export default function PopularTools() {
             onClick={() => handleScroll("left")}
             aria-label="Scroll left"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
+            <Icon name="arrow-left" aria-hidden />
           </button>
 
           <div
@@ -156,19 +154,7 @@ export default function PopularTools() {
             onClick={() => handleScroll("right")}
             aria-label="Scroll right"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <Icon name="arrow-right" aria-hidden />
           </button>
         </div>
 

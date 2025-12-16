@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
+import styles from "./home.module.scss";
 import InstructorCTABanner from "@components/instructorCTABanner/InstructorCTABanner";
 import PopularTools from "@components/popular-tools/popular-tools";
-import styles from "./home.module.scss";
 
 // Navigation links data
 interface NavLink {
@@ -17,7 +17,7 @@ const navLinks: NavLink[] = [
     description: "Dual-handle slider with synchronized inputs",
   },
   {
-    to: "/course-detail",
+    to: "/course-details",
     label: "Course Details",
     description: "Course overview with sticky navigation",
   },

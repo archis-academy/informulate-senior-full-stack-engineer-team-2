@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import VideoPlayer from "@components/video-player/video-player";
 import styles from "./course-details.module.scss";
@@ -17,35 +17,73 @@ const navItems: NavItem[] = [
 
 export default function CourseDetailsPage() {
   const [activeSection, setActiveSection] = useState<string>("overview");
-
   const [isNavSticky, setIsNavSticky] = useState<boolean>(false);
+  const [navHeight, setNavHeight] = useState(0);
 
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const navRef = useRef<HTMLElement | null>(null);
   const navPlaceholderRef = useRef<HTMLDivElement | null>(null);
-  const NAV_SCROLL_OFFSET = 150;
+  
+  const isScrollingRef = useRef<boolean>(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const NAV_SCROLL_PADDING = 20;
+  const SCROLL_POSITION_OFFSET = 10; 
+  const SCROLL_ANIMATION_DURATION = 1000;
+
+  useLayoutEffect(() => {
+    const measureNavHeight = () => {
+      if (navRef.current) {
+        setNavHeight(navRef.current.offsetHeight);
+      }
+    };
+
+    measureNavHeight();
+    
+    window.addEventListener("resize", measureNavHeight);
+    return () => window.removeEventListener("resize", measureNavHeight);
+  }, []);
+
+  useEffect(() => {
+    if (!navPlaceholderRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        setIsNavSticky(!entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 1.0, 
+        rootMargin: "0px 0px 0px 0px",
+      }
+    );
+
+    observer.observe(navPlaceholderRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = (): void => {
-      if (navPlaceholderRef.current) {
-        const navTop = navPlaceholderRef.current.getBoundingClientRect().top;
-        setIsNavSticky(navTop <= 0);
-      }
+      if (isScrollingRef.current) return;
 
-      const scrollPosition = window.scrollY + NAV_SCROLL_OFFSET;
-
+      let currentSection = navItems[0]?.id ?? "";
       for (const item of navItems) {
         const section = sectionRefs.current[item.id];
         if (section) {
-          const sectionTop = section.offsetTop;
+          const sectionTop = section.offsetTop - navHeight - NAV_SCROLL_PADDING - SCROLL_POSITION_OFFSET;
           const sectionBottom = sectionTop + section.offsetHeight;
-
-          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            setActiveSection(item.id);
+          if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+            currentSection = item.id;
             break;
           }
         }
       }
+      setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -54,27 +92,45 @@ export default function CourseDetailsPage() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [navHeight]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string): void => {
       e.preventDefault();
-
+      
       const section = sectionRefs.current[sectionId];
-      if (section) {
-        const navHeight = navRef.current?.offsetHeight || 60;
-        const sectionTop = section.offsetTop - navHeight - 20;
+      if (!section) return;
 
-        window.scrollTo({
-          top: sectionTop,
-          behavior: "smooth",
-        });
-
-        setActiveSection(sectionId);
+      isScrollingRef.current = true;
+      
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
+
+      setActiveSection(sectionId);
+      const targetPosition = Math.max(
+        section.offsetTop - navHeight - NAV_SCROLL_PADDING,
+        0
+      );
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, SCROLL_ANIMATION_DURATION);
     },
-    []
+    [navHeight]
   );
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <main className={styles.courseDetailsPage}>
@@ -96,7 +152,8 @@ export default function CourseDetailsPage() {
         <div
           ref={navPlaceholderRef}
           className={styles.navPlaceholder}
-          style={{ height: isNavSticky ? navRef.current?.offsetHeight : 0 }}
+          style={{ height: isNavSticky ? navHeight : 0 }}
+          aria-hidden="true"
         />
 
         <nav
