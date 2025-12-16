@@ -24,8 +24,11 @@ const DEFAULT_STUDENT_AVATARS: Student[] = [
   { id: "5", name: "David Lee", avatar: "" },
 ];
 
-function Avatar({ student }: { student: Student }) {
-  const [imgError, setImgError] = useState(false);
+/**
+ * StudentAvatar handles its own imageError state
+ */
+function StudentAvatar({ student, zIndex }: { student: Student; zIndex: number }) {
+  const [imageError, setImageError] = useState(false);
 
   const getInitials = (name: string) =>
     name
@@ -36,21 +39,16 @@ function Avatar({ student }: { student: Student }) {
       .slice(0, 2);
 
   return (
-    <div className={styles.avatar} title={student.name}>
-      {!imgError && student.avatar ? (
+    <div className={styles.avatar} style={{ zIndex }} title={student.name}>
+      {student.avatar && !imageError ? (
         <img
           src={student.avatar}
           alt={student.name}
-          onError={() => setImgError(true)}
+          onError={() => setImageError(true)}
         />
-      ) : null}
-      <span
-        className={`${styles.avatarInitials} ${
-          !imgError && student.avatar ? styles.hidden : ""
-        }`}
-      >
-        {getInitials(student.name)}
-      </span>
+      ) : (
+        <span className={styles.avatarInitials}>{getInitials(student.name)}</span>
+      )}
     </div>
   );
 }
@@ -65,11 +63,11 @@ export default function LectureHeader({
 }: LectureHeaderProps) {
   const formatNumber = (num: number): string => num.toLocaleString();
   const MAX_DISPLAY_AVATARS = 5;
-  
+
   const displayAvatars: Student[] =
-  studentAvatars.length > 0
-    ? studentAvatars.slice(0, MAX_DISPLAY_AVATARS)
-    : DEFAULT_STUDENT_AVATARS.slice(0, MAX_DISPLAY_AVATARS);
+    studentAvatars.length > 0
+      ? studentAvatars.slice(0, MAX_DISPLAY_AVATARS)
+      : DEFAULT_STUDENT_AVATARS.slice(0, MAX_DISPLAY_AVATARS);
 
   return (
     <header className={styles.lectureHeader}>
@@ -85,12 +83,11 @@ export default function LectureHeader({
           <div className={styles.studentsInfo}>
             <div className={styles.avatarStack} aria-label="Students watching">
               {displayAvatars.map((student, index) => (
-                <div
+                <StudentAvatar
                   key={student.id}
-                  style={{ zIndex: displayAvatars.length - index }}
-                >
-                  <Avatar student={student} />
-                </div>
+                  student={student}
+                  zIndex={displayAvatars.length - index}
+                />
               ))}
             </div>
 
@@ -120,9 +117,7 @@ export default function LectureHeader({
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
             </svg>
             <div className={styles.metaText}>
-              <span className={styles.metaValue}>
-                {formatNumber(commentCount)}
-              </span>
+              <span className={styles.metaValue}>{formatNumber(commentCount)}</span>
               <span className={styles.metaLabel}>Comments</span>
             </div>
           </div>

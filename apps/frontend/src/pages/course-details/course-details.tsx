@@ -1,141 +1,34 @@
-import { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import VideoPlayer from "@components/video-player/video-player";
 import styles from "./course-details.module.scss";
+import { useStickyNav } from "../../hooks/use-sticky-nav";
 
 interface NavItem {
   id: string;
   label: string;
 }
 
-const navItems: NavItem[] = [
-  { id: "overview", label: "Overview" },
-  { id: "curriculum", label: "Curriculum" },
-  { id: "instructor", label: "Instructor" },
-  { id: "review", label: "Review" },
-];
-
 export default function CourseDetailsPage() {
-  const [activeSection, setActiveSection] = useState<string>("overview");
-  const [isNavSticky, setIsNavSticky] = useState<boolean>(false);
-  const [navHeight, setNavHeight] = useState(0);
+  const navItems: NavItem[] = [
+    { id: "overview", label: "Overview" },
+    { id: "curriculum", label: "Curriculum" },
+    { id: "instructor", label: "Instructor" },
+    { id: "review", label: "Review" },
+  ];
 
-  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
-  const navRef = useRef<HTMLElement | null>(null);
-  const navPlaceholderRef = useRef<HTMLDivElement | null>(null);
-  
-  const isScrollingRef = useRef<boolean>(false);
-  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const NAV_SCROLL_PADDING = 20;
-  const SCROLL_POSITION_OFFSET = 10; 
-  const SCROLL_ANIMATION_DURATION = 1000;
-
-  useLayoutEffect(() => {
-    const measureNavHeight = () => {
-      if (navRef.current) {
-        setNavHeight(navRef.current.offsetHeight);
-      }
-    };
-
-    measureNavHeight();
-    
-    window.addEventListener("resize", measureNavHeight);
-    return () => window.removeEventListener("resize", measureNavHeight);
-  }, []);
-
-  useEffect(() => {
-    if (!navPlaceholderRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (!entry) return;
-        setIsNavSticky(!entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 1.0, 
-        rootMargin: "0px 0px 0px 0px",
-      }
-    );
-
-    observer.observe(navPlaceholderRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = (): void => {
-      if (isScrollingRef.current) return;
-
-      let currentSection = navItems[0]?.id ?? "";
-      for (const item of navItems) {
-        const section = sectionRefs.current[item.id];
-        if (section) {
-          const sectionTop = section.offsetTop - navHeight - NAV_SCROLL_PADDING - SCROLL_POSITION_OFFSET;
-          const sectionBottom = sectionTop + section.offsetHeight;
-          if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
-            currentSection = item.id;
-            break;
-          }
-        }
-      }
-      setActiveSection(currentSection);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [navHeight]);
-
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string): void => {
-      e.preventDefault();
-      
-      const section = sectionRefs.current[sectionId];
-      if (!section) return;
-
-      isScrollingRef.current = true;
-      
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      setActiveSection(sectionId);
-      const targetPosition = Math.max(
-        section.offsetTop - navHeight - NAV_SCROLL_PADDING,
-        0
-      );
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth",
-      });
-      scrollTimeoutRef.current = setTimeout(() => {
-        isScrollingRef.current = false;
-      }, SCROLL_ANIMATION_DURATION);
-    },
-    [navHeight]
-  );
-
-  useEffect(() => {
-    return () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, []);
+  const {
+    activeSection,
+    isNavSticky,
+    sectionRefs,
+    navRef,
+    navPlaceholderRef,
+    handleNavClick,
+  } = useStickyNav(navItems);
 
   return (
     <main className={styles.courseDetailsPage}>
-      <div className={styles.contentContainer}>
-        <Link to="/" className={styles.breadcrumbLink}>
+      <div className={styles.container}>
+        <Link to="/" className={styles.backLink}>
           ← Back to Home
         </Link>
 
@@ -152,8 +45,7 @@ export default function CourseDetailsPage() {
         <div
           ref={navPlaceholderRef}
           className={styles.navPlaceholder}
-          style={{ height: isNavSticky ? navHeight : 0 }}
-          aria-hidden="true"
+          style={{ height: isNavSticky ? navRef.current?.offsetHeight : 0 }}
         />
 
         <nav

@@ -41,17 +41,223 @@
   background-color: $black;
 }
 
-.contentSection {
-  max-width: pxToRem(1340);
+.contentWrapper {
+  background-color: $white;
+}
+
+.container {
+  max-width: pxToRem(1000);
   margin: 0 auto;
-  padding: $spacing-2xl $spacing-xl;
+  padding: 0 $spacing-xl;
 
   @media (max-width: $tablet-m) {
-    padding: $spacing-xl $spacing-lg;
+    padding: 0 $spacing-lg;
+  }
+}
+
+.navPlaceholder {
+  transition: height 0.1s ease;
+}
+
+.sectionNav {
+  background-color: $white;
+  border-bottom: 1px solid $color-border;
+  z-index: 100;
+  transition: box-shadow $transition-base;
+}
+
+.sectionNavSticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: $shadow-md;
+}
+
+.navContainer {
+  max-width: pxToRem(1000);
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+
+  @media (max-width: $tablet-m) {
+    padding: 0 $spacing-lg;
+  }
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.navItem {
+  flex-shrink: 0;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-lg $spacing-xl;
+  font-size: pxToRem(15);
+  font-weight: $font-medium;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: all $transition-base;
+  white-space: nowrap;
+
+  &:hover {
+    color: $color-secondary;
+    background-color: #f7f9fa;
   }
 
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: -2px;
+  }
+
+  @media (max-width: $tablet-m) {
+    padding: $spacing-md $spacing-lg;
+    font-size: pxToRem(14);
+  }
+}
+
+.navLinkActive {
+  color: $color-secondary;
+  border-bottom-color: #e35c33;
+  font-weight: $font-semibold;
+}
+
+.navBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: pxToRem(24);
+  height: pxToRem(20);
+  padding: 0 $spacing-xs;
+  font-size: pxToRem(12);
+  font-weight: $font-semibold;
+  color: $white;
+  background-color: #e35c33;
+  border-radius: $radius-sm;
+}
+
+.contentSections {
+  padding: $spacing-2xl 0;
+}
+
+.contentSection {
+  padding-bottom: $spacing-2xl;
+  margin-bottom: $spacing-2xl;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  font-size: pxToRem(24);
+  font-weight: $font-bold;
+  color: $color-secondary;
+  margin: 0;
+
+  .sectionHeader & {
+    margin-bottom: 0;
+  }
+
+  &:not(.sectionHeader &) {
+    margin-bottom: $spacing-lg;
+  }
+
+  @media (max-width: $tablet-m) {
+    font-size: pxToRem(20);
+  }
+}
+
+.downloadNotesBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-lg;
+  font-size: pxToRem(14);
+  font-weight: $font-medium;
+  color: #e35c33;
+  background-color: rgba(227, 92, 51, 0.1);
+  border: 1px solid #e35c33;
+  border-radius: $radius-md;
+  text-decoration: none;
+  transition: all $transition-base;
+
+  &:hover {
+    background-color: #e35c33;
+    color: $white;
+  }
+
+  &:focus {
+    outline: 2px solid #e35c33;
+    outline-offset: 2px;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.sectionContent {
+  font-size: pxToRem(15);
+  color: $color-text-primary;
+  line-height: 1.8;
+
   p {
-    font-size: pxToRem(15);
-    color: $color-text-secondary;
+    margin: 0 0 $spacing-lg 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    margin: 0 0 $spacing-lg 0;
+    padding-left: $spacing-xl;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  li {
+    margin-bottom: $spacing-sm;
+    line-height: 1.7;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  strong {
+    color: $color-secondary;
+    font-weight: $font-semibold;
   }
 }
