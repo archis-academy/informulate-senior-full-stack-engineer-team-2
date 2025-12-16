@@ -1,6 +1,6 @@
+import { useState } from "react";
 import styles from "./lecture-header.module.scss";
 
-// Interfaces
 interface Student {
   id: string;
   name: string;
@@ -16,6 +16,37 @@ interface LectureHeaderProps {
   lastUpdated: string;
 }
 
+function Avatar({ student }: { student: Student }) {
+  const [imgError, setImgError] = useState(false);
+
+  const getInitials = (name: string) =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+
+  return (
+    <div className={styles.avatar} title={student.name}>
+      {!imgError && student.avatar ? (
+        <img
+          src={student.avatar}
+          alt={student.name}
+          onError={() => setImgError(true)}
+        />
+      ) : null}
+      <span
+        className={`${styles.avatarInitials} ${
+          !imgError && student.avatar ? styles.hidden : ""
+        }`}
+      >
+        {getInitials(student.name)}
+      </span>
+    </div>
+  );
+}
+
 export default function LectureHeader({
   lectureNumber,
   lectureTitle,
@@ -24,37 +55,19 @@ export default function LectureHeader({
   commentCount,
   lastUpdated,
 }: LectureHeaderProps) {
-  /**
-   * Format number with comma separators
-   */
-  const formatNumber = (num: number): string => {
-    return num.toLocaleString();
-  };
-
-  /**
-   * Get initials from name
-   */
-  const getInitials = (name: string): string => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
-  };
-
-  const hiddenClass = styles.hidden;
-
+  const formatNumber = (num: number): string => num.toLocaleString();
+  const MAX_DISPLAY_AVATARS = 5;
+  
   const displayAvatars: Student[] =
     studentAvatars.length > 0
-      ? studentAvatars.slice(0, 5)
+      ? studentAvatars.slice(0, MAX_DISPLAY_AVATARS)
       : [
           { id: "1", name: "John Doe", avatar: "" },
           { id: "2", name: "Sarah Smith", avatar: "" },
           { id: "3", name: "Mike Johnson", avatar: "" },
           { id: "4", name: "Emily Brown", avatar: "" },
           { id: "5", name: "David Lee", avatar: "" },
-        ];
+        ].slice(0, MAX_DISPLAY_AVATARS);
 
   return (
     <header className={styles.lectureHeader}>
@@ -74,30 +87,9 @@ export default function LectureHeader({
               {displayAvatars.map((student, index) => (
                 <div
                   key={student.id}
-                  className={styles.avatar}
                   style={{ zIndex: displayAvatars.length - index }}
-                  title={student.name}
                 >
-                    
-                  {student.avatar ? (
-                    <img
-                      src={student.avatar}
-                      alt={student.name}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = "none";
-                        hiddenClass &&
-                            (e.target as HTMLImageElement)
-                                .nextElementSibling?.classList.remove(hiddenClass);                       
-                      }}
-                    />
-                  ) : null}
-                  <span
-                    className={`${styles.avatarInitials} ${
-                      student.avatar ? styles.hidden : ""
-                    }`}
-                  >
-                    {getInitials(student.name)}
-                  </span>
+                  <Avatar student={student} />
                 </div>
               ))}
             </div>
