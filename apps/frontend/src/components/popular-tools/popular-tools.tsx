@@ -78,9 +78,9 @@ interface KeywordTagProps {
 function KeywordTag({ keyword }: KeywordTagProps) {
   return (
     <li className={styles.keywordItem}>
-      <a href={`/keywords/${keyword.id}`} className={styles.keywordTag}>
+      <Link to={`/keywords/${keyword.id}`} className={styles.keywordTag}>
         {keyword.name}
-      </a>
+      </Link>
     </li>
   );
 }
