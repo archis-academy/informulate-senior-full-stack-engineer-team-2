@@ -2,8 +2,6 @@
 @use "@styles/_functions.scss" as *;
 @use "sass:color";
 
-$color-accent-orange: #e35c33;
-
 .bannerWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;

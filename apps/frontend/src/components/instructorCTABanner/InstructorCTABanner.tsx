@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"; 
 import styles from "./instructor-cta-banner.module.scss";
-import { Link } from "react-router-dom";
 import Icon from "@components/icon/icon";
 
 interface Step {
