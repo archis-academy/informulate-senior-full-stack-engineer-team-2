@@ -2,6 +2,8 @@
 @use "@styles/_functions.scss" as *;
 @use "sass:color";
 
+$color-accent-orange: #e35c33;
+
 .bannerWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -15,7 +17,7 @@
 }
 
 .leftColumn {
-  background-color: #e35c33;
+  background-color: $color-accent-orange;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -79,7 +81,7 @@
   gap: $spacing-md;
   padding: pxToRem(16) pxToRem(28);
   background-color: $white;
-  color: #e35c33;
+  color: $color-accent-orange;
   font-size: pxToRem(16);
   font-weight: $font-bold;
   font-family: $primary-font;
@@ -117,7 +119,7 @@
   transition: transform $transition-base;
 
   svg {
-    stroke: #e35c33;
+    stroke: $color-accent-orange;
     stroke-width: 2;
   }
 
@@ -226,7 +228,7 @@
 
 .stepItem--2 .stepCircle {
   background-color: #fff0eb;
-  color: #e35c33;
+  color: $color-accent-orange;
 }
 
 .stepItem--3 .stepCircle {
