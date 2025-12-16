@@ -39,7 +39,6 @@ export default function CourseComments({
       if (onCommentSubmit) {
         onCommentSubmit(newComment);
       }
-      console.log("New comment submitted:", newComment);
       setNewComment("");
       setIsFocused(false);
     }
@@ -54,7 +53,6 @@ export default function CourseComments({
     if (onReplySubmit) {
       onReplySubmit(commentId, replyContent);
     }
-    console.log(`Reply to comment ${commentId}:`, replyContent);
   };
 
   return (
