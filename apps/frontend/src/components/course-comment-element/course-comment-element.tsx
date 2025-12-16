@@ -79,20 +79,23 @@ export default function CourseCommentElement({
       }`}
     >
       <div className={styles.commentMain}>
+        {/* Avatar */}
         <div className={styles.avatar}>
-          {!imageError && comment.avatar ? (
+          {comment.avatar && !imageError ? (
             <img
               src={comment.avatar}
               alt={comment.author}
               onError={() => setImageError(true)}
             />
-          ) : null}
-          <span className={styles.avatarInitials}>
-            {getInitials(comment.author)}
-          </span>
+          ) : (
+            <span className={styles.avatarInitials}>
+              {getInitials(comment.author)}
+            </span>
+          )}
         </div>
 
         <div className={styles.commentBody}>
+          {/* Header */}
           <div className={styles.commentHeader}>
             <span className={styles.authorName}>{comment.author}</span>
             {comment.isAdmin && (
@@ -102,10 +105,12 @@ export default function CourseCommentElement({
             <span className={styles.commentDate}>{comment.date}</span>
           </div>
 
+          {/* Comment Content */}
           <div className={styles.commentContent}>
             {renderContent(comment.content)}
           </div>
 
+          {/* Reply Button */}
           <button
             type="button"
             className={styles.replyBtn}
@@ -127,6 +132,7 @@ export default function CourseCommentElement({
             <span>REPLY</span>
           </button>
 
+          {/* Reply Form */}
           {showReplyForm && (
             <form className={styles.replyForm} onSubmit={handleReplySubmit}>
               <textarea
@@ -156,6 +162,7 @@ export default function CourseCommentElement({
             </form>
           )}
 
+          {/* Nested Replies */}
           {comment.replies && comment.replies.length > 0 && (
             <div className={styles.repliesList}>
               {comment.replies.map((reply) => (
